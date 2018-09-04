@@ -1,6 +1,8 @@
 # backend
 
-(https://www.marstonsoftware.com)
+
+## Contributing
+* [Author](https://www.marstonsoftware.com) - My Company 
 
 Backend desarrollado en Django y Api rest Full
 
