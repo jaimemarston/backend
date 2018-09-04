@@ -20,7 +20,7 @@ EJEMPLOS:
 <https://michaelwashburnjr.com/django-user-authentication/>
 
 ```html
- :::python
+ 
 {"username": "luismi" ,"password1":"luismi123" ,"password2": "luismi123","email":"jai..........@gmail.com"}
 
 6a4e76a7a45d73a3d97ab5a5f1f8a0e066450a4b
@@ -49,7 +49,13 @@ EJEMPLOS:
     }
 ```    
 
-
+:::python
+    import lifetime
+    
+    for each_day in lifetime.days():
+        carpe_diem()
+        
+        
 Ahora tu fichero debería tener este aspecto:
 
 ```html
