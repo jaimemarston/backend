@@ -39,8 +39,33 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestionapp',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
+
+# Sitio creado por defecto
+SITE_ID = 1
+
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+REST_SESSION_LOGIN = False
 CORS_ORIGIN_ALLOW_ALL= True
+
+
+# activar para usar token
+"""
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated', )
+}
+"""
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
