@@ -34,12 +34,14 @@ EJEMPLOS:
 }
 ```
 ## Arbol
-   backend
-    ├── app
-    │   ├── migrations
-    │   ├── static
-    │   └── templates
-    └── mysite
+```
+proyecto
+├── archivos-madre
+├── epub
+├── pdf
+└── recursos
+
+```
     
     En tu fichero `blog/static/css/blog.css` deberías añadir el siguiente código:
 
