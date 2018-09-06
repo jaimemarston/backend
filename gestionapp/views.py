@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics
 
-from gestionapp.models import Deposito, Articulo, Cliente
-from gestionapp.serializers import DepositoSerializer, ArticuloSerializer, ClienteSerializer
+from gestionapp.models import Deposito, Articulo, Cliente, Unidad
+from gestionapp.serializers import DepositoSerializer, ArticuloSerializer, ClienteSerializer, UnidadSerializer
 
 from django.contrib.auth.models import User
 from rest_framework import status
@@ -11,9 +11,20 @@ from rest_framework.views import APIView
 
 # Create your views here.
 
+class UnidadList(generics.ListCreateAPIView):
+    queryset = Unidad.objects.all()
+    serializer_class = UnidadSerializer
+
+
+class UnidadDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Unidad.objects.all()
+    serializer_class = UnidadSerializer
+
+
 class DepositoList(generics.ListCreateAPIView):
     queryset = Deposito.objects.all()
     serializer_class = DepositoSerializer
+
 
 class DepositoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Deposito.objects.all()

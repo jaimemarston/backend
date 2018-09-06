@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 
-from gestionapp.models import Deposito, Articulo, Cliente 
+from gestionapp.models import Deposito, Articulo, Cliente, Unidad 
 
 
 class DepositoSerializer(serializers.ModelSerializer):
@@ -9,6 +9,11 @@ class DepositoSerializer(serializers.ModelSerializer):
 		model = Deposito
 		fields = ('id', 'codigo', 'descripcion')
 
+
+class UnidadSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Unidad
+		fields = ('id', 'codigo', 'descripcion')
 
 class ArticuloSerializer(serializers.ModelSerializer):
 	class Meta:

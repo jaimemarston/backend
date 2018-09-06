@@ -17,6 +17,11 @@ class Deposito(models.Model):
     descripcion = models.CharField(max_length=30,blank=True, null=True)
 
 
+class Unidad(models.Model):
+    codigo =  models.IntegerField()
+    descripcion = models.CharField(max_length=30,blank=True, null=True)
+
+
 class Articulo(models.Model):
     codigo =  models.IntegerField()
     descripcion = models.CharField(max_length=60)
