@@ -30,8 +30,6 @@ class Articulo(models.Model):
     deposito = models.ForeignKey(Deposito, null=True, on_delete=models.SET_NULL)
 
 
-
-
 class Cliente(models.Model):
     codigo    = models.CharField(max_length=15,blank=True, null=True)
     ruc       = models.CharField(max_length=15, blank=True, null=True)
@@ -47,8 +45,9 @@ class Cliente(models.Model):
     banco_cuenta2 = models.CharField(max_length=100,blank=True, null=True)
     banco_moneda2 = models.CharField(max_length=20,blank=True, null=True)
     sucursal      = models.CharField(max_length=10, blank=True, null=True)
-    estado        = models.IntegerField(default=0)
     fechanac      = models.DateField(null=True, blank=True, help_text="Ingrese si esta activo u otro stado ")  
+    estado        = models.IntegerField(default=0)
+    anulado       = models.IntegerField(default=0)
     fecregistro   = models.DateField(null=True, blank=True)
     aud_idusu     = models.CharField(max_length=30,blank=True, null=True)
     aud_feccre    = models.DateTimeField(auto_now=True)
