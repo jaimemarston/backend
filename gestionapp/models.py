@@ -223,4 +223,15 @@ class Mgasto(models.Model):
 class Dgasto(Camposcomunes_detaildoc,Camposcomunes_auditoria):
     pass
 
+class Clientesdireccion(models.Model):
+    master = models.ForeignKey(Cliente, related_name='clientesdirecciones', on_delete=models.CASCADE)
+    direccion = models.CharField(max_length=100)
+    telefono = models.CharField(max_length=50)
+    
 
+    class Meta:
+        unique_together = ('master', 'id')
+        ordering = ['id']
+
+    def __unicode__(self):
+        return '%d: %s' % (self.direccion, self.telefono)

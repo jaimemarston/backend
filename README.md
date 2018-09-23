@@ -61,7 +61,7 @@ proyecto
 Ahora tu fichero debería tener este aspecto:
 
 ```html
-    {% load staticfiles %}
+
     <html>
         <head>
             <title>Django Girls blog</title>
