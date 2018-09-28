@@ -10,7 +10,6 @@ COLORES = (
     ('4', 'Azul'),
 )
 
-
 class Camposcomunes_masterdoc(models.Model):
     codigo = models.IntegerField(default=0)
     descripcion = models.CharField(max_length=30, null=True, blank=True)
@@ -40,6 +39,7 @@ class Camposcomunes_masterdoc(models.Model):
     numordserv = models.IntegerField(default=0)
     vendidopor = models.CharField(max_length=30, null=True, blank=True)
     fechapago = models.DateField(null=True, blank=True)
+    unidadtransporte = models.CharField(max_length=50, null=True, blank=True)
     autorizadosunat = models.IntegerField(default=0)
     impsubtotal = models.IntegerField(default=0)
     impanticipos = models.IntegerField(default=0)
@@ -56,7 +56,8 @@ class Camposcomunes_masterdoc(models.Model):
     cc3 = models.CharField(max_length=30, null=True, blank=True)
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
-
+    correoruc = models.CharField(max_length=150, null=True, blank=True)
+    
     class Meta:
         abstract = True
 
@@ -67,18 +68,18 @@ class Camposcomunes_detaildoc(models.Model):
     descripcion = models.CharField(max_length=30, null=True, blank=True)
     unimed = models.CharField(max_length=30, null=True, blank=True)
     desunimed = models.CharField(max_length=30, null=True, blank=True)
-    cantidad = models.IntegerField(default=0)
-    precio = models.IntegerField(default=0)
-    impsubtotal = models.IntegerField(default=0)
-    impanticipos = models.IntegerField(default=0)
-    impdescuentos = models.IntegerField(default=0)
-    impvalorventa = models.IntegerField(default=0)
-    impisc = models.IntegerField(default=0)
-    impigv = models.IntegerField(default=0)
-    nvaligv = models.IntegerField(default=0)
-    impotroscargos = models.IntegerField(default=0)
-    impotrostributos = models.IntegerField(default=0)
-    imptotal = models.IntegerField(default=0)
+    cantidad = models.IntegerField(default=0,null=True, blank=True)
+    precio = models.IntegerField(default=0,null=True, blank=True)
+    impsubtotal = models.IntegerField(default=0,null=True, blank=True)
+    impanticipos = models.IntegerField(default=0,null=True, blank=True)
+    impdescuentos = models.IntegerField(default=0,null=True, blank=True)
+    impvalorventa = models.IntegerField(default=0,null=True, blank=True)
+    impisc = models.IntegerField(default=0,null=True, blank=True)
+    impigv = models.IntegerField(default=0,null=True, blank=True)
+    nvaligv = models.IntegerField(default=0,null=True, blank=True)
+    impotroscargos = models.IntegerField(default=0,null=True, blank=True)
+    impotrostributos = models.IntegerField(default=0,null=True, blank=True)
+    imptotal = models.IntegerField(default=0,null=True, blank=True)
     desgrupo1 = models.CharField(max_length=30, null=True, blank=True)
     desgrupo2 = models.CharField(max_length=30, null=True, blank=True)
     cc1 = models.CharField(max_length=30, null=True, blank=True)  # cc para saber donde se hace gasto
@@ -145,6 +146,8 @@ class Unidad(models.Model):
     codigo = models.IntegerField()
     descripcion = models.CharField(max_length=30, blank=True, null=True)
     placa = models.CharField(max_length=30, blank=True, null=True)
+    npasajeros = models.CharField(max_length=150, blank=True, null=True)
+    color = models.CharField(max_length=50, blank=True, null=True)
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
 
@@ -191,7 +194,10 @@ class Centrodecosto1(models.Model):
     totingresos = models.IntegerField(default=0)
     totgastos = models.IntegerField(default=0)
 
-
+class Banco(models.Model):
+    codigo = models.CharField(max_length=30, blank=True, null=True)
+    descripcion = models.CharField(max_length=60, blank=True, null=True)
+    
 # centro de costo para monitor de flujo gasto ingreso
 
 

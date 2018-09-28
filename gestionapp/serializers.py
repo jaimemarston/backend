@@ -1,8 +1,12 @@
 from rest_framework import serializers
 
 from gestionapp.models import Deposito, Articulo, Cliente, Unidad, Programagastos, Mcotizacion, Dcotizacion, \
-    Clientesdireccion
+    Clientesdireccion, Banco
 
+class BancoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Banco
+        fields = ('id', 'codigo', 'descripcion')
 
 class DepositoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -13,7 +17,7 @@ class DepositoSerializer(serializers.ModelSerializer):
 class UnidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unidad
-        fields = ('id', 'codigo', 'descripcion')
+        fields = ('id', 'codigo', 'descripcion', 'placa' , 'npasajeros', 'color')
 
 
 class ArticuloSerializer(serializers.ModelSerializer):
@@ -54,7 +58,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'numeroguia', 'numordserv', 'vendidopor', 'fechapago', 'autorizadosunat', 'impsubtotal',
                   'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
-                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'cotizaciones')
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin','correoruc','unidadtransporte','estado', 'cotizaciones')
 
 
 class ClientesdireccionSerializer(serializers.ModelSerializer):

@@ -29,6 +29,9 @@ urlpatterns = [
     url(r'^clientesdireccion$', views.ClientesDireccionlist.as_view()),
     url(r'^clientesdirecciondetail$', views.ClientesDireccionlistdetail.as_view()),
     url(r'^', include(router.urls)),
+
     
+    url(r'^banco$', views.BancoList.as_view()),
+
 ]
 

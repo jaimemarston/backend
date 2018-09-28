@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from gestionapp.models import Deposito, Articulo, Cliente, Unidad, Mcotizacion, Dcotizacion, Clientesdireccion
+from gestionapp.models import (
+    Deposito, Articulo, Cliente, Unidad, Mcotizacion,
+    Dcotizacion, Clientesdireccion, Banco
+)
 
 from gestionapp.serializers import (
     DepositoSerializer, ArticuloSerializer, ClienteSerializer, UnidadSerializer,
     McotizacionSerializer, DcotizacionSerializer, ClientesdireccionSerializer,
-    ClientesdirecciondetalleSerializer
+    ClientesdirecciondetalleSerializer, BancoSerializer
 )
 
 from django.contrib.auth.models import User
@@ -32,6 +35,9 @@ def masivo_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class BancoList(generics.ListCreateAPIView):
+    queryset = Banco.objects.all()
+    serializer_class = BancoSerializer
 
 class UnidadList(generics.ListCreateAPIView):
     queryset = Unidad.objects.all()
