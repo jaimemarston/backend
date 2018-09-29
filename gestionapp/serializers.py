@@ -3,10 +3,12 @@ from rest_framework import serializers
 from gestionapp.models import Deposito, Articulo, Cliente, Unidad, Programagastos, Mcotizacion, Dcotizacion, \
     Clientesdireccion, Banco
 
+
 class BancoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banco
         fields = ('id', 'codigo', 'descripcion')
+
 
 class DepositoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,7 +19,7 @@ class DepositoSerializer(serializers.ModelSerializer):
 class UnidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unidad
-        fields = ('id', 'codigo', 'descripcion', 'placa' , 'npasajeros', 'color')
+        fields = ('id', 'codigo', 'descripcion', 'placa', 'npasajeros', 'color')
 
 
 class ArticuloSerializer(serializers.ModelSerializer):
@@ -35,6 +37,10 @@ class ClienteSerializer(serializers.ModelSerializer):
                   'direccion', 'correo', 'paginaweb', 'tipocc', 'destipocc',
                   'banco_nombre1', 'banco_cuenta1', 'banco_moneda1', 'banco_nombre2', 'banco_cuenta2',
                   'banco_moneda2', 'fechanac', 'fechaini', 'fechafin')
+
+    def create(self, validated_data):
+        validated_data['codigo'] = str(Cliente.objects.last().id).zfill(10)
+        return Cliente.objects.create(**validated_data)
 
 
 class DcotizacionSerializer(serializers.ModelSerializer):
@@ -58,7 +64,8 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'numeroguia', 'numordserv', 'vendidopor', 'fechapago', 'autorizadosunat', 'impsubtotal',
                   'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
-                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin','correoruc','unidadtransporte','estado', 'cotizaciones')
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'correoruc', 'unidadtransporte', 'estado',
+                  'cotizaciones')
 
 
 class ClientesdireccionSerializer(serializers.ModelSerializer):
