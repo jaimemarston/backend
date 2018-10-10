@@ -39,9 +39,16 @@ class ClienteSerializer(serializers.ModelSerializer):
                   'banco_moneda2', 'fechanac', 'fechaini', 'fechafin')
 
     def create(self, validated_data):
-        validated_data['codigo'] = str(Cliente.objects.last().id).zfill(10)
+        validated_data['codigo'] = str(Cliente.objects.last().id).zfill(6) #is not None
+        
         return Cliente.objects.create(**validated_data)
 
+"""
+    def create(self, validated_data):
+      #  validated_data['codigo'] = str(Cliente.objects.last().id).zfill(6)
+      validated_data['codigo'] = str(Cliente.objects.last().id).zfill(6) if Cliente.objects.last().id  is not None else str(1)
+      return Cliente.objects.create(**validated_data)
+"""
 
 class DcotizacionSerializer(serializers.ModelSerializer):
     class Meta:
