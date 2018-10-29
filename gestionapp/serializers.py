@@ -39,7 +39,8 @@ class ClienteSerializer(serializers.ModelSerializer):
                   'banco_moneda2', 'fechanac', 'fechaini', 'fechafin')
 
     def create(self, validated_data):
-        validated_data['codigo'] = str(Cliente.objects.last().id).zfill(6) #is not None
+        last_id = Cliente.objects.last().id if Cliente.objects.last() else 1
+        validated_data['codigo'] = str(last_id).zfill(6) #is not None
         
         return Cliente.objects.create(**validated_data)
 
