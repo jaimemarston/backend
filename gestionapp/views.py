@@ -1,4 +1,8 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.template.loader import get_template
+from django.utils.timezone import now
+from django.views import View
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from gestionapp.models import (
@@ -19,9 +23,12 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.decorators import action
-
+import base64
+from django.templatetags.static import static
 
 # Create your views here.
+from gestionapp.utils import render_to_pdf, PDFTemplateView
+
 
 @api_view(['GET', 'POST'])
 def masivo_list(request):
@@ -35,9 +42,11 @@ def masivo_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class BancoList(generics.ListCreateAPIView):
     queryset = Banco.objects.all()
     serializer_class = BancoSerializer
+
 
 class UnidadList(generics.ListCreateAPIView):
     queryset = Unidad.objects.all()
@@ -157,3 +166,17 @@ class ClientesDireccionlistdetail(generics.ListCreateAPIView):
 class CotizacionViewSet(viewsets.ModelViewSet):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
+
+
+class GeneratePDF(PDFTemplateView):
+    template_name = 'gestionapp/invoice.html'
+
+    def get_context_data(self, **kwargs):
+        maestro_cotizacion = Dcotizacion.objects.filter(master=2)
+        return super(GeneratePDF, self).get_context_data(
+            pagesize='A4',
+            title='Hi there!',
+            today=now(),
+            cotizacion=maestro_cotizacion,
+            **kwargs
+        )
