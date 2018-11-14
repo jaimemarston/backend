@@ -1,4 +1,3 @@
-
 # coding=utf-8
 
 from __future__ import absolute_import, division, print_function, unicode_literals
@@ -23,7 +22,6 @@ def render_to_pdf(template_src, context_dict={}):
     if not pdf.err:
         return HttpResponse(result.getvalue(), content_type='application/pdf')
     return None
-
 
 
 class PDFTemplateResponseMixin(TemplateResponseMixin):
@@ -90,3 +88,20 @@ class PDFTemplateView(PDFTemplateResponseMixin, ContextMixin, View):
         """
         context = self.get_context_data(**kwargs)
         return self.render_to_response(context)
+
+
+import os
+import base64
+
+
+def image_as_base64(image_file, format='png'):
+    """
+    :param `image_file` for the complete path of image.
+    :param `format` is format for image, eg: `png` or `jpg`.
+    """
+    if not os.path.isfile(image_file):
+        return None
+
+    with open(image_file, 'rb') as img_f:
+        encoded_string = base64.b64encode(img_f.read())
+    return 'data:image/%s;base64,%s' % (format, encoded_string)

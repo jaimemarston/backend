@@ -27,7 +27,7 @@ import base64
 from django.templatetags.static import static
 
 # Create your views here.
-from gestionapp.utils import render_to_pdf, PDFTemplateView
+from gestionapp.utils import render_to_pdf, PDFTemplateView, image_as_base64
 
 
 @api_view(['GET', 'POST'])
@@ -173,6 +173,7 @@ class GeneratePDF(PDFTemplateView):
 
     def get_context_data(self, **kwargs):
         maestro_cotizacion = Dcotizacion.objects.filter(master=2)
+
         return super(GeneratePDF, self).get_context_data(
             pagesize='A4',
             title='Hi there!',
