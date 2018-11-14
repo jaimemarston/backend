@@ -1,10 +1,6 @@
-from django.http import HttpResponse
-from django.shortcuts import render
-from django.template.loader import get_template
+from django.template.defaulttags import register
 from django.utils.timezone import now
-from django.views import View
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 from gestionapp.models import (
     Deposito, Articulo, Cliente, Unidad, Mcotizacion,
     Dcotizacion, Clientesdireccion, Banco
@@ -168,16 +164,45 @@ class CotizacionViewSet(viewsets.ModelViewSet):
     serializer_class = McotizacionSerializer
 
 
-class GeneratePDF(PDFTemplateView):
+class GeneratePDFCotizacionesMaster(PDFTemplateView):
     template_name = 'gestionapp/invoice.html'
 
     def get_context_data(self, **kwargs):
         maestro_cotizacion = Dcotizacion.objects.filter(master=2)
 
-        return super(GeneratePDF, self).get_context_data(
+        return super(GeneratePDFCotizacionesMaster, self).get_context_data(
             pagesize='A4',
             title='Hi there!',
             today=now(),
             cotizacion=maestro_cotizacion,
             **kwargs
         )
+
+
+class GeneratePDFCotizacionesDetail(PDFTemplateView):
+    template_name = 'gestionapp/invoice.html'
+
+    def get_context_data(self, pk=None, *args, **kwargs):
+        if pk is None:
+            fields = ['codigo', 'descripcion', 'unidad medida', 'cantidad', 'precio', 'importe total']
+            fields_db = ['codigo', 'descripcion', 'desunimed', 'cantidad', 'precio', 'imptotal']
+            queryset = Mcotizacion.objects.all().values()
+        else:
+            fields = ['codigo', 'fecha', 'ruc', 'nombre', 'Unidad transporte', 'telefono']
+            fields_db = ['codigo', 'fechadoc', 'ruc', 'desruc', 'unidadtransporte', 'telruc']
+            queryset = Dcotizacion.objects.filter(master=pk).values()
+
+        return super(GeneratePDFCotizacionesDetail, self).get_context_data(
+            pagesize='A4',
+            title='Hi there!',
+            today=now(),
+            cotizacion=queryset,
+            fields=fields,
+            fields_db=fields_db,
+            **kwargs
+        )
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

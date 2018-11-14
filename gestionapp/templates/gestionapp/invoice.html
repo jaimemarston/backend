@@ -77,6 +77,10 @@
             text-align: right;
         }
 
+        .text-center {
+            text-align: center;
+        }
+
         .bottom-10 {
             margin-bottom: 10px;
         }
@@ -182,23 +186,17 @@
             <table>
                 <thead>
                 <tr>
-                    <th class="text-left">Codigo</th>
-                    <th class="text-right">Descripcion</th>
-                    <th class="text-right">Unidad Medida</th>
-                    <th class="text-right">Cantidad</th>
-                    <th class="text-right">Precio</th>
-                    <th class="text-right">Importe Total</th>
+                    {% for field in fields %}
+                        <th class="text-left">{{ field }}</th>
+                    {% endfor %}
                 </tr>
                 </thead>
                 <tbody>
-                {% for co in cotizacion %}
+                {% for q in cotizacion %}
                     <tr>
-                        <td class="text-left">{{ co.codigo }}</td>
-                        <td class="text-right">{{ co.descripcion }}</td>
-                        <td class="text-right">{{ co.desunimed }}</td>
-                        <td class="text-right">{{ co.cantidad }}</td>
-                        <td class="text-right">{{ co.precio }}</td>
-                        <td class="text-right">{{ co.imptotal }}</td>
+                        {% for k in fields_db %}
+                            <td class="text-left">{{ q|get_item:k }}</td>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -223,11 +221,11 @@
                 </tr>
             </table>
 
-{#            <h2>Totales</h2>#}
-{##}
-{#            <p class="bottom-20">#}
-{#                Muchas gracias!#}
-{#            </p>#}
+            {#            <h2>Totales</h2>#}
+            {##}
+            {#            <p class="bottom-20">#}
+            {#                Muchas gracias!#}
+            {#            </p>#}
         </div>
     </div>
 {% endblock %}

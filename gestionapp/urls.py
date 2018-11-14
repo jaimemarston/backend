@@ -33,7 +33,8 @@ urlpatterns = [
 
     
     url(r'^banco$', views.BancoList.as_view()),
-    url(r'^generate_pdf$', views.GeneratePDF.as_view()),
+    url(r'^generate_pdf$', views.GeneratePDFCotizacionesDetail.as_view()),
+    url(r'^generate_pdf/(?P<pk>\d+)/$', views.GeneratePDFCotizacionesDetail.as_view()),
     url(r'^generate_html$', TemplateView.as_view(template_name="gestionapp/invoice.html"))
 ]
 
