@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.template.defaulttags import register
+from django.utils.timezone import now
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
 from gestionapp.models import (
     Deposito, Articulo, Cliente, Unidad, Mcotizacion,
     Dcotizacion, Clientesdireccion, Banco
@@ -19,9 +19,12 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.decorators import action
-
+import base64
+from django.templatetags.static import static
 
 # Create your views here.
+from gestionapp.utils import render_to_pdf, PDFTemplateView, image_as_base64
+
 
 @api_view(['GET', 'POST'])
 def masivo_list(request):
@@ -35,9 +38,11 @@ def masivo_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class BancoList(generics.ListCreateAPIView):
     queryset = Banco.objects.all()
     serializer_class = BancoSerializer
+
 
 class UnidadList(generics.ListCreateAPIView):
     queryset = Unidad.objects.all()
@@ -157,3 +162,47 @@ class ClientesDireccionlistdetail(generics.ListCreateAPIView):
 class CotizacionViewSet(viewsets.ModelViewSet):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
+
+
+class GeneratePDFCotizacionesMaster(PDFTemplateView):
+    template_name = 'gestionapp/invoice.html'
+
+    def get_context_data(self, **kwargs):
+        maestro_cotizacion = Dcotizacion.objects.filter(master=2)
+
+        return super(GeneratePDFCotizacionesMaster, self).get_context_data(
+            pagesize='A4',
+            title='Hi there!',
+            today=now(),
+            cotizacion=maestro_cotizacion,
+            **kwargs
+        )
+
+
+class GeneratePDFCotizacionesDetail(PDFTemplateView):
+    template_name = 'gestionapp/invoice.html'
+
+    def get_context_data(self, pk=None, *args, **kwargs):
+        if pk is None:
+            fields = ['codigo', 'descripcion', 'unidad medida', 'cantidad', 'precio', 'importe total']
+            fields_db = ['codigo', 'descripcion', 'desunimed', 'cantidad', 'precio', 'imptotal']
+            queryset = Mcotizacion.objects.all().values()
+        else:
+            fields = ['codigo', 'fecha', 'ruc', 'nombre', 'Unidad transporte', 'telefono']
+            fields_db = ['codigo', 'fechadoc', 'ruc', 'desruc', 'unidadtransporte', 'telruc']
+            queryset = Dcotizacion.objects.filter(master=pk).values()
+
+        return super(GeneratePDFCotizacionesDetail, self).get_context_data(
+            pagesize='A4',
+            title='Hi there!',
+            today=now(),
+            cotizacion=queryset,
+            fields=fields,
+            fields_db=fields_db,
+            **kwargs
+        )
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
