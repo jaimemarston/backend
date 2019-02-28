@@ -57,7 +57,8 @@ class Camposcomunes_masterdoc(models.Model):
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
     correoruc = models.CharField(max_length=150, null=True, blank=True)
-    
+    horaini = models.CharField(max_length=30, null=True, blank=True)
+    horafin = models.CharField(max_length=30, null=True, blank=True)
     class Meta:
         abstract = True
 
@@ -65,9 +66,9 @@ class Camposcomunes_masterdoc(models.Model):
 class Camposcomunes_detaildoc(models.Model):
     codigo = models.IntegerField(default=0)
     codpro = models.CharField(max_length=30, null=True, blank=True)
-    descripcion = models.CharField(max_length=30, null=True, blank=True)
-    unimed = models.CharField(max_length=30, null=True, blank=True)
-    desunimed = models.CharField(max_length=30, null=True, blank=True)
+    descripcion = models.CharField(max_length=150, null=True, blank=True)
+    unimed = models.CharField(max_length=60, null=True, blank=True)
+    desunimed = models.CharField(max_length=60, null=True, blank=True)
     cantidad = models.IntegerField(default=0,null=True, blank=True)
     precio = models.IntegerField(default=0,null=True, blank=True)
     impsubtotal = models.IntegerField(default=0,null=True, blank=True)
@@ -87,6 +88,8 @@ class Camposcomunes_detaildoc(models.Model):
     cc3 = models.CharField(max_length=30, null=True, blank=True)
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
+    horaini = models.CharField(max_length=30, null=True, blank=True)
+    horafin = models.CharField(max_length=30, null=True, blank=True)
 
     class Meta:
         abstract = True

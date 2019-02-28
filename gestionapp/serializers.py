@@ -58,7 +58,7 @@ class DcotizacionSerializer(serializers.ModelSerializer):
                   'impanticipos', 'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'desgrupo1', 'desgrupo2',
-                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'master')
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'master')
 
 
 class McotizacionSerializer(serializers.ModelSerializer):
@@ -72,7 +72,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'numeroguia', 'numordserv', 'vendidopor', 'fechapago', 'autorizadosunat', 'impsubtotal',
                   'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
-                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'correoruc', 'unidadtransporte', 'estado',
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte', 'estado',
                   'cotizaciones')
 
 
