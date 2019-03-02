@@ -59,6 +59,9 @@ class Camposcomunes_masterdoc(models.Model):
     correoruc = models.CharField(max_length=150, null=True, blank=True)
     horaini = models.CharField(max_length=30, null=True, blank=True)
     horafin = models.CharField(max_length=30, null=True, blank=True)
+    lugorigen = models.CharField(max_length=50, null=True, blank=True)
+    lugdestino = models.CharField(max_length=50, null=True, blank=True)
+    opcviaje = models.CharField(max_length=30, null=True, blank=True)
     class Meta:
         abstract = True
 
@@ -90,6 +93,9 @@ class Camposcomunes_detaildoc(models.Model):
     fechafin = models.DateField(null=True, blank=True)
     horaini = models.CharField(max_length=30, null=True, blank=True)
     horafin = models.CharField(max_length=30, null=True, blank=True)
+    lugorigen = models.CharField(max_length=50, null=True, blank=True)
+    lugdestino = models.CharField(max_length=50, null=True, blank=True)
+    opcviaje = models.CharField(max_length=30, null=True, blank=True)
 
     class Meta:
         abstract = True

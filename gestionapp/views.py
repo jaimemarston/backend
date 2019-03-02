@@ -2,12 +2,12 @@ from django.template.defaulttags import register
 from django.utils.timezone import now
 from rest_framework import generics
 from gestionapp.models import (
-    Deposito, Articulo, Cliente, Unidad, Mcotizacion,
+    Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion,
     Dcotizacion, Clientesdireccion, Banco
 )
 
 from gestionapp.serializers import (
-    DepositoSerializer, ArticuloSerializer, ClienteSerializer, UnidadSerializer,
+    DepositoSerializer, ArticuloSerializer, ClienteSerializer, ProveedorSerializer, UnidadSerializer,
     McotizacionSerializer, DcotizacionSerializer, ClientesdireccionSerializer,
     ClientesdirecciondetalleSerializer, BancoSerializer
 )
@@ -107,6 +107,38 @@ class ClienteListMasivo(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
+class ProveedorList(generics.ListCreateAPIView):
+    queryset = Proveedor.objects.all()
+    serializer_class = ProveedorSerializer
+
+    # bloquea permisos para usar token
+    # permission_classes = (IsAuthenticated,)
+    def perform_create(self, serializer):
+        # guarda aud_idusu automatically en tabla.
+        serializer.save(aud_idusu=self.request.user.username)
+
+    # para filtrar datos
+    """
+    def get_queryset(self):
+       
+       # This view should return a list of all the purchases
+       # for the currently authenticated user.
+       
+        # para otros filtros desde diccionario
+        
+        user = self.request.user.username
+        return Cliente.objects.filter(aud_idusu=user)
+    """
+
+
+class ProveedorDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Proveedor.objects.all()
+    serializer_class = ProveedorSerializer
+
+
+class ProveedorListMasivo(viewsets.ModelViewSet):
+    queryset = Proveedor.objects.all()
+    serializer_class = ProveedorSerializer
 
 class McotizacionList(generics.ListCreateAPIView):
     queryset = Mcotizacion.objects.all()
