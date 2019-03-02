@@ -1,16 +1,18 @@
 from django.template.defaulttags import register
 from django.utils.timezone import now
 from rest_framework import generics
+from rest_framework.viewsets import ModelViewSet
+
 from gestionapp.models import (
     Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion,
-    Dcotizacion, Clientesdireccion, Banco
-)
+    Dcotizacion, Clientesdireccion, Banco,
+    CotizacionEstado)
 
 from gestionapp.serializers import (
     DepositoSerializer, ArticuloSerializer, ClienteSerializer, ProveedorSerializer, UnidadSerializer,
     McotizacionSerializer, DcotizacionSerializer, ClientesdireccionSerializer,
-    ClientesdirecciondetalleSerializer, BancoSerializer
-)
+    ClientesdirecciondetalleSerializer, BancoSerializer,
+    CotizacionEstadoSerializer)
 
 from django.contrib.auth.models import User
 from rest_framework import status
@@ -107,6 +109,7 @@ class ClienteListMasivo(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
+
 class ProveedorList(generics.ListCreateAPIView):
     queryset = Proveedor.objects.all()
     serializer_class = ProveedorSerializer
@@ -139,6 +142,7 @@ class ProveedorDetail(generics.RetrieveUpdateDestroyAPIView):
 class ProveedorListMasivo(viewsets.ModelViewSet):
     queryset = Proveedor.objects.all()
     serializer_class = ProveedorSerializer
+
 
 class McotizacionList(generics.ListCreateAPIView):
     queryset = Mcotizacion.objects.all()
@@ -238,3 +242,8 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
 @register.filter
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+
+class CotizacionEstadoViewSet(ModelViewSet):
+    serializer_class = CotizacionEstadoSerializer
+    queryset = CotizacionEstado.objects.all()
