@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Programagastos, Mcotizacion, Dcotizacion, \
-    Clientesdireccion, Banco
+    Clientesdireccion, Banco, CotizacionEstado
 
 
 class BancoSerializer(serializers.ModelSerializer):
@@ -40,9 +40,10 @@ class ClienteSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         last_id = Cliente.objects.last().id if Cliente.objects.last() else 1
-        validated_data['codigo'] = str(last_id).zfill(6) #is not None
-        
+        validated_data['codigo'] = str(last_id).zfill(6)  # is not None
+
         return Cliente.objects.create(**validated_data)
+
 
 """
     def create(self, validated_data):
@@ -50,6 +51,7 @@ class ClienteSerializer(serializers.ModelSerializer):
       validated_data['codigo'] = str(Cliente.objects.last().id).zfill(6) if Cliente.objects.last().id  is not None else str(1)
       return Cliente.objects.create(**validated_data)
 """
+
 
 class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
@@ -62,9 +64,10 @@ class ProveedorSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         last_id = Proveedor.objects.last().id if Proveedor.objects.last() else 1
-        validated_data['codigo'] = str(last_id).zfill(6) #is not None
-        
+        validated_data['codigo'] = str(last_id).zfill(6)  # is not None
+
         return Proveedor.objects.create(**validated_data)
+
 
 """
     def create(self, validated_data):
@@ -73,14 +76,15 @@ class ProveedorSerializer(serializers.ModelSerializer):
       return Cliente.objects.create(**validated_data)
 """
 
+
 class DcotizacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dcotizacion
         fields = ('id', 'codigo', 'codpro', 'descripcion', 'unimed', 'desunimed', 'cantidad', 'precio', 'impsubtotal',
                   'impanticipos', 'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
-                  'desgrupo1', 'desgrupo2','lugorigen', 'lugdestino','opcviaje',
-                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'master')
+                  'desgrupo1', 'desgrupo2', 'lugorigen', 'lugdestino', 'opcviaje',
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'master', 'estado')
 
 
 class McotizacionSerializer(serializers.ModelSerializer):
@@ -95,7 +99,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte',
-                  'lugorigen', 'lugdestino', 'opcviaje', 'estado','cotizaciones')
+                  'lugorigen', 'lugdestino', 'opcviaje', 'estado', 'cotizaciones')
 
 
 class ClientesdireccionSerializer(serializers.ModelSerializer):
@@ -111,3 +115,9 @@ class ClientesdirecciondetalleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = ('nombre', 'ruc', 'clientesdirecciones')
+
+
+class CotizacionEstadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CotizacionEstado
+        fields = '__all__'
