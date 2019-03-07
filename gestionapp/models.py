@@ -98,7 +98,14 @@ class Camposcomunes_detaildoc(models.Model):
     lugorigen = models.CharField(max_length=50, null=True, blank=True)
     lugdestino = models.CharField(max_length=50, null=True, blank=True)
     opcviaje = models.CharField(max_length=30, null=True, blank=True)
+    conductor = models.CharField(max_length=50, null=True, blank=True)
+    nvuelo = models.CharField(max_length=50, null=True, blank=True)
+    proveedor = models.CharField(max_length=50, null=True, blank=True)
+    tipodoc = models.CharField(max_length=50, null=True, blank=True)
+    obs = models.CharField(max_length=50, null=True, blank=True)
     estado = models.ForeignKey('CotizacionEstado', blank=True, null=True, on_delete=models.CASCADE)
+
+    
 
     class Meta:
         abstract = True
