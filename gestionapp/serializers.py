@@ -85,7 +85,7 @@ class DcotizacionSerializer(serializers.ModelSerializer):
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'desgrupo1', 'desgrupo2', 'lugorigen', 'lugdestino', 'opcviaje',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'conductor', 'nvuelo',
-                  'proveedor', 'obs', 'tipodoc', 'estado', 'estadodoc', 'grupo', 'posmapa', 'master' )
+                  'proveedor', 'obs', 'tipodoc', 'estado', 'estadodoc', 'posmapa', 'master' )
 
      
 
@@ -102,7 +102,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte',
                   'lugorigen', 'lugdestino', 'opcviaje',
-                  'estado','estadodoc','grupo', 'posmapa', 'cotizaciones')
+                  'estado', 'grupo', 'posmapa', 'cotizaciones')
 
 
 class ClientesdireccionSerializer(serializers.ModelSerializer):
