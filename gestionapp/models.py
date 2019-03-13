@@ -63,6 +63,7 @@ class Camposcomunes_masterdoc(models.Model):
     lugorigen = models.CharField(max_length=50, null=True, blank=True)
     lugdestino = models.CharField(max_length=50, null=True, blank=True)
     opcviaje = models.CharField(max_length=30, null=True, blank=True)
+    grupo = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         abstract = True
@@ -103,8 +104,8 @@ class Camposcomunes_detaildoc(models.Model):
     proveedor = models.CharField(max_length=50, null=True, blank=True)
     tipodoc = models.CharField(max_length=50, null=True, blank=True)
     obs = models.CharField(max_length=50, null=True, blank=True)
-    estado = models.ForeignKey('CotizacionEstado', blank=True, null=True, on_delete=models.CASCADE)
-
+    estadodoc = models.ForeignKey('CotizacionEstado', blank=True, null=True, on_delete=models.CASCADE)
+    
     
 
     class Meta:
@@ -150,6 +151,9 @@ class Camposcomunes_personal(models.Model):
     fechanac = models.DateField(null=True, blank=True, help_text="Ingrese si esta activo u otro stado ")
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
+    grupo = models.CharField(max_length=100, blank=True, null=True)
+    pais = models.CharField(max_length=50, blank=True, null=True)
+    idioma = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         abstract = True

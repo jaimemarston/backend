@@ -36,7 +36,7 @@ class ClienteSerializer(serializers.ModelSerializer):
                   'telefono1', 'telefono2', 'telefono3', 'contacto', 'telcontacto',
                   'direccion', 'correo', 'paginaweb', 'tipocc', 'destipocc',
                   'banco_nombre1', 'banco_cuenta1', 'banco_moneda1', 'banco_nombre2', 'banco_cuenta2',
-                  'banco_moneda2', 'fechanac', 'fechaini', 'fechafin')
+                  'banco_moneda2', 'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
 
     def create(self, validated_data):
         last_id = Cliente.objects.last().id if Cliente.objects.last() else 1
@@ -60,7 +60,7 @@ class ProveedorSerializer(serializers.ModelSerializer):
                   'telefono1', 'telefono2', 'telefono3', 'contacto', 'telcontacto',
                   'direccion', 'correo', 'paginaweb', 'tipocc', 'destipocc',
                   'banco_nombre1', 'banco_cuenta1', 'banco_moneda1', 'banco_nombre2', 'banco_cuenta2',
-                  'banco_moneda2', 'fechanac', 'fechaini', 'fechafin')
+                  'banco_moneda2', 'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
 
     def create(self, validated_data):
         last_id = Proveedor.objects.last().id if Proveedor.objects.last() else 1
@@ -85,7 +85,7 @@ class DcotizacionSerializer(serializers.ModelSerializer):
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'desgrupo1', 'desgrupo2', 'lugorigen', 'lugdestino', 'opcviaje',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'conductor', 'nvuelo',
-                  'proveedor', 'obs', 'tipodoc', 'estado', 'posmapa', 'master' )
+                  'proveedor', 'obs', 'tipodoc', 'estado', 'estadodoc', 'grupo', 'posmapa', 'master' )
 
      
 
@@ -102,7 +102,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte',
                   'lugorigen', 'lugdestino', 'opcviaje',
-                  'estado', 'posmapa', 'cotizaciones')
+                  'estado','estadodoc','grupo', 'posmapa', 'cotizaciones')
 
 
 class ClientesdireccionSerializer(serializers.ModelSerializer):
