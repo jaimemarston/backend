@@ -166,7 +166,7 @@ class Deposito(models.Model):
 
 # Unidades de Transporte
 class Unidad(models.Model):
-    codigo = models.IntegerField()
+    codigo = models.CharField(max_length=15, blank=True, null=True)
     descripcion = models.CharField(max_length=30, blank=True, null=True)
     placa = models.CharField(max_length=30, blank=True, null=True)
     npasajeros = models.CharField(max_length=150, blank=True, null=True)
