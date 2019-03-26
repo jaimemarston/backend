@@ -79,12 +79,18 @@ class ArticuloDetail(generics.RetrieveUpdateDestroyAPIView):
 class ClienteList(generics.ListCreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
-
+    
     # bloquea permisos para usar token
     # permission_classes = (IsAuthenticated,)
     def perform_create(self, serializer):
         # guarda aud_idusu automatically en tabla.
+        
         serializer.save(aud_idusu=self.request.user.username)
+
+    def perform_update(self, serializer):
+        # guarda aud_idusu automatically en tabla.
+        
+        serializer.save(aud_idusu='idexample')
 
     # para filtrar datos
     """
@@ -147,13 +153,7 @@ class ProveedorListMasivo(viewsets.ModelViewSet):
 class McotizacionList(generics.ListCreateAPIView):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
-
-    # bloquea permisos para usar token
-    # permission_classes = (IsAuthenticated,)
-    def perform_create(self, serializer):
-        # guarda aud_idusu automatically en tabla.
-        serializer.save(aud_idusu=self.request.user.username)
-
+       
 
 class McotizacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mcotizacion.objects.all()
@@ -208,7 +208,7 @@ class GeneratePDFCotizacionesMaster(PDFTemplateView):
 
         return super(GeneratePDFCotizacionesMaster, self).get_context_data(
             pagesize='A4',
-            title='Hi there!',
+            title='Cotizacion Alitour',
             today=now(),
             cotizacion=maestro_cotizacion,
             **kwargs
@@ -220,19 +220,23 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
 
     def get_context_data(self, pk=None, *args, **kwargs):
         if pk is None:
-            fields = ['codigo', 'descripcion', 'unidad medida', 'cantidad', 'precio', 'importe total']
-            fields_db = ['codigo', 'descripcion', 'desunimed', 'cantidad', 'precio', 'imptotal']
+            fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'transporte', 'Total']
+            fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
+            headerset = Mcotizacion.objects.all().values()
             queryset = Mcotizacion.objects.all().values()
         else:
-            fields = ['codigo', 'fecha', 'ruc', 'nombre', 'Unidad transporte', 'telefono']
-            fields_db = ['codigo', 'fechadoc', 'ruc', 'desruc', 'unidadtransporte', 'telruc']
+            fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'Transporte', 'Total']
+            fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
+            headerset = Mcotizacion.objects.filter(id=pk).values()
             queryset = Dcotizacion.objects.filter(master=pk).values()
+            
 
         return super(GeneratePDFCotizacionesDetail, self).get_context_data(
             pagesize='A4',
-            title='Hi there!',
+            title='Cotizacion Alitour',
             today=now(),
             cotizacion=queryset,
+            headerset=headerset,
             fields=fields,
             fields_db=fields_db,
             **kwargs

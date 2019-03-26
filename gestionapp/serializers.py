@@ -43,7 +43,7 @@ class ClienteSerializer(serializers.ModelSerializer):
         validated_data['codigo'] = str(last_id).zfill(6)  # is not None
 
         return Cliente.objects.create(**validated_data)
-
+    
 
 """
     def create(self, validated_data):

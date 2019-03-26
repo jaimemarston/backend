@@ -34,7 +34,7 @@
 
         p {
             margin: 0 0 6px 0;
-            font-size: 11pt;
+            font-size: 8pt;
         }
 
         table {
@@ -93,8 +93,8 @@
             color: #7f7f7f;
         }
 
-        .header p {
-            font-size: 13px;
+        .foot-1 {
+            font-size: 20px;
             line-height: 1.5em;
         }
 
@@ -125,6 +125,12 @@
             color: #4F81BD;
         }
 
+        .main h3 {
+            margin: 18px 0 18px 0;
+            font-weight: normal;
+            color: #4F81BD;
+        }
+
         .main h2 {
             margin: 18px 0 6px 0;
             font-size: 180%;
@@ -149,7 +155,7 @@
     <div id="page-header">
         <div class="header">
             <p class="logo">
-                <img src="{% static 'img/example-logo-2.png' %}" width="650px" height="250px">
+                <img src="{% static 'img/logo.jpg' %}" width="650px" height="250px">
             </p>
             {#            <p>#}
             {#                Street Name <br>#}
@@ -167,20 +173,29 @@
                 <strong>{{ 'ALITOUR' }}</strong>
             </p>
             <p class="bottom-10">
-                {{ 'LIMA' }} <br>
-                {{ 'JESUS MARIA' }} <br/>
+                {{ 'Av Ricardo Palma 781' }} <br>
+                {{ 'Miraflores' }} <br/>
             </p>
-            <p>{{ today|date:"DATETIME_FORMAT" }} UTC</p>
+            <p>{{ today|date:"DATETIME_FORMAT" }} </p>
         </div>
 
         <div class="main">
-            <h1>{{ 'ALITOUR INVOICE' }}</h1>
+            <h3>{{ 'DETALLE DE LA COTIZACION' }}</h3>
 
             <table class="bordered bottom-20">
                 <tr>
-                    <td class="item-name"><strong>Invoice number</strong></td>
-                    <td><strong>{{ '209494' }}</strong></td>
+                   
+                   
                 </tr>
+
+                <tr>
+                    {% for field in headerset %}
+                        <td class="item-name"><strong>Numero de Cotizacion:</strong>{{ field.codigo }}</td>
+                        <td class="item-name"><strong>Dirigido a : </strong>{{ field.desruc }}</td>
+                        
+                    {% endfor %}
+                </tr>
+
             </table>
 
             <table>
@@ -221,11 +236,48 @@
                 </tr>
             </table>
 
-            {#            <h2>Totales</h2>#}
-            {##}
-            {#            <p class="bottom-20">#}
-            {#                Muchas gracias!#}
-            {#            </p>#}
+          
+            <table>
+                
+                <br> <i>Para confirmar la reserva, necesitamos datos de los pasajeros, # de vuelos y nombre del hotel. </i>  </br> 
+                <b>CONDICIONES</b>
+              
+                <p>
+                   
+                        &#10004 Precios en dólares,  incluye IGV</br> 
+                        &#10004 Si la tarifa está en moneda extranjera, se considera al tipo de cambio del día de envío de la cotización.</br> 
+                        &#10004 El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario se procederá a cobrar hora adicional según tarifario y tipo de unidad.</br> 
+                        &#10004 Tarifa sujeta a disponibilidad sin previo aviso y se confirma al momento de hecha la reserva.</br> 
+                        &#10004 De producirse una cancelación 24 horas antes del servicio será considerado no show y  se cobrará el 100% del valor total de la factura.</br> 
+                        &#10004 No se permite comer, tomar bebidas alcohólicas ni fumar en la unidad. Así como tampoco ingresar a la unidad en estado etílico o con efectos de haber ingerido otras sustancias.</br> 
+                        &#10004 No se permite realizar paradas dutante el trayecto en los servicios de Full Day, por disposición del Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo previamente.</br> 
+                        &#10004 En caso de daño o perjuicio por parte de los pasajeros a la unidad, será responsable la empresa contratante por el 100% de los gastos ocasionados.</br> 
+                        &#10004 Es importante que todos los pasajeros porten su DNI, Adultos (según Numeral 802.2 del Artículo 80° D.S. N° 017 - 2009 -MTC)  y Niños (según Artículo 14° - D. S. N° 007- 2008 IN), si salen fuera de Lima, ya que TOLERANCIA CERO lo solicitará.</br> 
+                        &#10004 Niños de 04 años a más, van en sus respectivos asientos.</br> 
+                        &#10004 Alitour no es responsable de perjuicio o retraso derivado de circunstancias ajenas a su control, como: desastres naturales como terremotos, ciclones, tormentas, huracanes, inundaciones, niebla, etc. Así como a causas de fuerza mayor: guerras, accidentes, huelgas, disturbios, manifestaciones o conmoción civil, etc, y a cualquier pérdida, daño, accidente o alguna otra irregularidad.</br> 
+                </p>
+               <b></b> INCLUYE:
+
+ü  Uso del vehículo por los días/horas contratados.
+ü  Conductores profesionales.
+ü  Combustible del vehículo, peajes y parqueos
+ü  Viáticos para los alojamientos y alimentación del conductor
+ 
+UNIDADES FULL EQUIPO CUENTAN CON:
+
+ü  Aire Acondicionado
+ü  Baño químico
+ü  TV led,  DVD
+ü  Reproductor mp3 y micrófonos 
+ü  Asientos reclinables
+ü  Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.
+ü  Cinturones de seguridad en todos los asientos
+ü  Permiso de Circulación Nacional otorgado por el MTC
+ü  SOAT Turístico contra accidentes de los pasajeros
+ü  Monitoreo satelital con GPS
+
+Saludos Cordiales,
+            </table>
         </div>
     </div>
 {% endblock %}
