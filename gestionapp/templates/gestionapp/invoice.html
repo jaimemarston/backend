@@ -1,30 +1,8 @@
 {% extends "gestionapp/base.html" %}
-
+<!--https://github.com/spipu/html2pdf/issues/81-->
 {% load static %}
-
 {% block layout_style %}
-    <style type="text/css">
-        @page {
-            size: {{ pagesize|default:"A4" }};
-            @frame content {
-            -pdf-frame-content: content;
-            margin-left: 2cm;
-            margin-right: 2.5cm;
-            margin-top: 2.5cm;
-            margin-bottom: 2cm;
-        }
-
-        @frame header {
-        -pdf-frame-content:page-header;
-        margin-top: 1.3cm;
-        margin-right: 2mm;
-        margin-bottom: 1cm;
-        margin-left: 2cm;
-        }
-        }
-    </style>
 {% endblock %}
-
 {% block extra_style %}
     <style type="text/css">
         html {
@@ -40,6 +18,7 @@
         table {
             line-height: 140%;
             margin-bottom: 20px;
+            page-break-inside: avoid;
         }
 
         table.bordered {
@@ -91,6 +70,7 @@
 
         .header {
             color: #7f7f7f;
+            position: running(header)
         }
 
         .foot-1 {
@@ -148,6 +128,8 @@
             color: #4F81BD;
             text-decoration: none;
         }
+
+        
     </style>
 {% endblock %}
 
@@ -157,41 +139,33 @@
             <p class="logo">
                 <img src="{% static 'img/logo.jpg' %}" width="650px" height="250px">
             </p>
-            {#            <p>#}
-            {#                Street Name <br>#}
-            {#                Postal Code <br/>#}
-            {#                City#}
-            {#            </p>#}
+            <p>
+                {{ 'Av Ricardo Palma 781' }} {{ 'Miraflores' }} <br/>
+                {{ 'LIMA - PERU' }}<br/>
+                {{ today|date:"DATETIME_FORMAT" }} 
+                
+            </p>
         </div>
     </div>
 {% endblock %}
 
-{% block content %}
+{% block page_content %}
+
+    
     <div id="content">
         <div class="recipient bottom-10">
-            <p class="bottom-10">
-                <strong>{{ 'ALITOUR' }}</strong>
-            </p>
-            <p class="bottom-10">
-                {{ 'Av Ricardo Palma 781' }} <br>
-                {{ 'Miraflores' }} <br/>
-            </p>
-            <p>{{ today|date:"DATETIME_FORMAT" }} </p>
+           
         </div>
 
         <div class="main">
             <h3>{{ 'DETALLE DE LA COTIZACION' }}</h3>
 
             <table class="bordered bottom-20">
-                <tr>
-                   
-                   
-                </tr>
-
-                <tr>
+                 <tr>
                     {% for field in headerset %}
                         <td class="item-name"><strong>Numero de Cotizacion:</strong>{{ field.codigo }}</td>
                         <td class="item-name"><strong>Dirigido a : </strong>{{ field.desruc }}</td>
+                        <td class="item-name"><strong>Expresado en : </strong>{{ field.desmonepago }}</td>
                         
                     {% endfor %}
                 </tr>
@@ -219,65 +193,62 @@
 
             <table class="bottom-20">
                 <tr>
-                    <td class="text-right"><strong>Descuentos</strong></td>
-                    <td class="text-right"><strong>100</strong></td>
-                </tr>
-                <tr>
-                    <td class="text-right"><strong>IGV (18%)</strong></td>
-                    <td class="text-right"><strong>100</strong></td>
-                </tr>
-                <tr>
-                    <td class="text-right"><strong>SubTotal</strong></td>
-                    <td class="text-right"><strong>100</strong></td>
-                </tr>
-                <tr>
-                    <td class="text-right"><strong>Total General</strong></td>
-                    <td class="text-right"><strong>100</strong></td>
-                </tr>
+                    <td class="text-right"><strong>Total Presupuesto</strong></td>
+                    <td class="text-right"><strong>{{resultado_total}}</strong></td>
+                </tr> 
             </table>
 
-          
-            <table>
-                
-                <br> <i>Para confirmar la reserva, necesitamos datos de los pasajeros, # de vuelos y nombre del hotel. </i>  </br> 
-                <b>CONDICIONES</b>
-              
-                <p>
-                   
-                        &#10004 Precios en dólares,  incluye IGV</br> 
-                        &#10004 Si la tarifa está en moneda extranjera, se considera al tipo de cambio del día de envío de la cotización.</br> 
-                        &#10004 El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario se procederá a cobrar hora adicional según tarifario y tipo de unidad.</br> 
-                        &#10004 Tarifa sujeta a disponibilidad sin previo aviso y se confirma al momento de hecha la reserva.</br> 
-                        &#10004 De producirse una cancelación 24 horas antes del servicio será considerado no show y  se cobrará el 100% del valor total de la factura.</br> 
-                        &#10004 No se permite comer, tomar bebidas alcohólicas ni fumar en la unidad. Así como tampoco ingresar a la unidad en estado etílico o con efectos de haber ingerido otras sustancias.</br> 
-                        &#10004 No se permite realizar paradas dutante el trayecto en los servicios de Full Day, por disposición del Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo previamente.</br> 
-                        &#10004 En caso de daño o perjuicio por parte de los pasajeros a la unidad, será responsable la empresa contratante por el 100% de los gastos ocasionados.</br> 
-                        &#10004 Es importante que todos los pasajeros porten su DNI, Adultos (según Numeral 802.2 del Artículo 80° D.S. N° 017 - 2009 -MTC)  y Niños (según Artículo 14° - D. S. N° 007- 2008 IN), si salen fuera de Lima, ya que TOLERANCIA CERO lo solicitará.</br> 
-                        &#10004 Niños de 04 años a más, van en sus respectivos asientos.</br> 
-                        &#10004 Alitour no es responsable de perjuicio o retraso derivado de circunstancias ajenas a su control, como: desastres naturales como terremotos, ciclones, tormentas, huracanes, inundaciones, niebla, etc. Así como a causas de fuerza mayor: guerras, accidentes, huelgas, disturbios, manifestaciones o conmoción civil, etc, y a cualquier pérdida, daño, accidente o alguna otra irregularidad.</br> 
-                </p>
-               <b></b> INCLUYE:
+           
+                        </div>
+                    </div>
 
-ü  Uso del vehículo por los días/horas contratados.
-ü  Conductores profesionales.
-ü  Combustible del vehículo, peajes y parqueos
-ü  Viáticos para los alojamientos y alimentación del conductor
- 
-UNIDADES FULL EQUIPO CUENTAN CON:
+                    <pdf:nextpage />        
+             
 
-ü  Aire Acondicionado
-ü  Baño químico
-ü  TV led,  DVD
-ü  Reproductor mp3 y micrófonos 
-ü  Asientos reclinables
-ü  Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.
-ü  Cinturones de seguridad en todos los asientos
-ü  Permiso de Circulación Nacional otorgado por el MTC
-ü  SOAT Turístico contra accidentes de los pasajeros
-ü  Monitoreo satelital con GPS
-
-Saludos Cordiales,
-            </table>
-        </div>
-    </div>
+      
 {% endblock %}
+{% block page_foot %}
+
+<br> <i>Para confirmar la reserva, necesitamos datos de los pasajeros, # de vuelos y nombre del hotel. </i>  </br> 
+<b>CONDICIONES</b>
+
+<p>
+   
+        &#10004 Precios en dólares,  incluye IGV</br> 
+        &#10004 Si la tarifa está en moneda extranjera, se considera al tipo de cambio del día de envío de la cotización.</br> 
+        &#10004 El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario se procederá a cobrar hora adicional según tarifario y tipo de unidad.</br> 
+        &#10004 Tarifa sujeta a disponibilidad sin previo aviso y se confirma al momento de hecha la reserva.</br> 
+        &#10004 De producirse una cancelación 24 horas antes del servicio será considerado no show y  se cobrará el 100% del valor total de la factura.</br> 
+        &#10004 No se permite comer, tomar bebidas alcohólicas ni fumar en la unidad. Así como tampoco ingresar a la unidad en estado etílico o con efectos de haber ingerido otras sustancias.</br> 
+        &#10004 No se permite realizar paradas dutante el trayecto en los servicios de Full Day, por disposición del Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo previamente.</br> 
+        &#10004 En caso de daño o perjuicio por parte de los pasajeros a la unidad, será responsable la empresa contratante por el 100% de los gastos ocasionados.</br> 
+        &#10004 Es importante que todos los pasajeros porten su DNI, Adultos (según Numeral 802.2 del Artículo 80° D.S. N° 017 - 2009 -MTC)  y Niños (según Artículo 14° - D. S. N° 007- 2008 IN), si salen fuera de Lima, ya que TOLERANCIA CERO lo solicitará.</br> 
+        &#10004 Niños de 04 años a más, van en sus respectivos asientos.</br> 
+        &#10004 Alitour no es responsable de perjuicio o retraso derivado de circunstancias ajenas a su control, como: desastres naturales como terremotos, ciclones, tormentas, huracanes, inundaciones, niebla, etc. Así como a causas de fuerza mayor: guerras, accidentes, huelgas, disturbios, manifestaciones o conmoción civil, etc, y a cualquier pérdida, daño, accidente o alguna otra irregularidad.</br> 
+</p>
+
+
+                     
+     <b> INCLUYE:</b>
+
+     &#10004  Uso del vehículo por los días/horas contratados.</br> 
+     &#10004  Conductores profesionales.</br> 
+     &#10004  Combustible del vehículo, peajes y parqueos</br> 
+     &#10004  Viáticos para los alojamientos y alimentación del conductor</br> 
+     
+     UNIDADES FULL EQUIPO CUENTAN CON:</br> 
+     
+     &#10004  Aire Acondicionado</br> 
+     &#10004  Baño químico</br> 
+     &#10004  TV led,  DVD</br> 
+     &#10004  Reproductor mp3 y micrófonos </br> 
+     &#10004  Asientos reclinables</br> 
+     &#10004  Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.</br> 
+     &#10004  Cinturones de seguridad en todos los asientos</br> 
+     &#10004  Permiso de Circulación Nacional otorgado por el MTC</br> 
+     &#10004  SOAT Turístico contra accidentes de los pasajeros</br> 
+     &#10004  Monitoreo satelital con GPS</br> 
+     <b>Saludos Cordiales,</b>
+
+{% endblock %}
+

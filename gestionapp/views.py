@@ -2,6 +2,7 @@ from django.template.defaulttags import register
 from django.utils.timezone import now
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
+from django.db.models import Sum
 
 from gestionapp.models import (
     Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion,
@@ -39,6 +40,7 @@ def masivo_list(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
 
 class BancoList(generics.ListCreateAPIView):
@@ -87,10 +89,7 @@ class ClienteList(generics.ListCreateAPIView):
         
         serializer.save(aud_idusu=self.request.user.username)
 
-    def perform_update(self, serializer):
-        # guarda aud_idusu automatically en tabla.
-        
-        serializer.save(aud_idusu='idexample')
+    
 
     # para filtrar datos
     """
@@ -110,6 +109,9 @@ class ClienteDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Cliente.objects.all()
     serializer_class = ClienteSerializer
 
+    def perform_update(self, serializer):
+        # guarda aud_idusu automatically en tabla.
+        serializer.save(idioma='español',pais='Peru')
 
 class ClienteListMasivo(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
@@ -120,14 +122,14 @@ class ProveedorList(generics.ListCreateAPIView):
     queryset = Proveedor.objects.all()
     serializer_class = ProveedorSerializer
 
-    # bloquea permisos para usar token
+    # para filtrar datos
+    """
+        # bloquea permisos para usar token
     # permission_classes = (IsAuthenticated,)
     def perform_create(self, serializer):
         # guarda aud_idusu automatically en tabla.
         serializer.save(aud_idusu=self.request.user.username)
-
-    # para filtrar datos
-    """
+        
     def get_queryset(self):
        
        # This view should return a list of all the purchases
@@ -158,23 +160,16 @@ class McotizacionList(generics.ListCreateAPIView):
 class McotizacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
-
+    
 
 class DcotizacionList(generics.ListCreateAPIView):
     queryset = Dcotizacion.objects.all()
     serializer_class = DcotizacionSerializer
 
-    # bloquea permisos para usar token
-    # permission_classes = (IsAuthenticated,)
-    def perform_create(self, serializer):
-        # guarda aud_idusu automatically en tabla.
-        serializer.save(aud_idusu=self.request.user.username)
-
-
 class DcotizacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Dcotizacion.objects.all()
     serializer_class = DcotizacionSerializer
-
+    
 
 class Logout(APIView):
     queryset = User.objects.all()
@@ -229,7 +224,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
             headerset = Mcotizacion.objects.filter(id=pk).values()
             queryset = Dcotizacion.objects.filter(master=pk).values()
-            
+            rimptotal = list(Dcotizacion.objects.filter(master=pk).aggregate(Sum('imptotal')).values())[0] or 0
 
         return super(GeneratePDFCotizacionesDetail, self).get_context_data(
             pagesize='A4',
@@ -239,6 +234,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             headerset=headerset,
             fields=fields,
             fields_db=fields_db,
+            resultado_total=rimptotal,
             **kwargs
         )
 

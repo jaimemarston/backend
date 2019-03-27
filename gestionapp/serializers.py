@@ -105,6 +105,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'estado', 'grupo', 'posmapa', 'cotizaciones')
 
 
+
 class ClientesdireccionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clientesdireccion
