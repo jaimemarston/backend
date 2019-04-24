@@ -155,6 +155,7 @@ class Camposcomunes_personal(models.Model):
     pais = models.CharField(max_length=50, blank=True, null=True)
     idioma = models.CharField(max_length=50, blank=True, null=True)
 
+
     class Meta:
         abstract = True
 
@@ -173,7 +174,9 @@ class Unidad(models.Model):
     color = models.CharField(max_length=50, blank=True, null=True)
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
-
+    foto1 = models.ImageField(upload_to='unidad', null=True, blank=True)
+    foto2 = models.ImageField(upload_to='unidad', null=True, blank=True)
+    
 
 # Programa gastos,Mantenimiento para unidades
 class Programagastos(models.Model):

@@ -225,6 +225,10 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             headerset = Mcotizacion.objects.filter(id=pk).values()
             queryset = Dcotizacion.objects.filter(master=pk).values()
             rimptotal = list(Dcotizacion.objects.filter(master=pk).aggregate(Sum('imptotal')).values())[0] or 0
+            imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')[0]) or ''
+            #imagen_obt = list(Unidad.objects.filter(descripcion=imagenes).values_list())
+            imagen_obt1 = list(Unidad.objects.values_list('foto1')[0])
+            imagen_obt2 = list(Unidad.objects.values_list('foto2')[0])
 
         return super(GeneratePDFCotizacionesDetail, self).get_context_data(
             pagesize='A4',
@@ -235,6 +239,8 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields=fields,
             fields_db=fields_db,
             resultado_total=rimptotal,
+            muestra_imagenes1=imagen_obt1,
+            muestra_imagenes2=imagen_obt2,
             **kwargs
         )
 

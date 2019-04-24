@@ -19,7 +19,7 @@ class DepositoSerializer(serializers.ModelSerializer):
 class UnidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unidad
-        fields = ('id', 'codigo', 'descripcion', 'placa', 'npasajeros', 'color')
+        fields = ('id', 'codigo', 'descripcion', 'placa', 'npasajeros', 'color', 'foto1', 'foto2')
 
 
 class ArticuloSerializer(serializers.ModelSerializer):
