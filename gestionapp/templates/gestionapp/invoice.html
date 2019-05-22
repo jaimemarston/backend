@@ -33,7 +33,7 @@
     }
 
     th {
-        font-size: 10pt;
+        font-size: 7pt;
         border-bottom: 0.1pt solid #999999;
         padding: 3px 0;
         line-height: 1;
@@ -41,7 +41,7 @@
     }
 
     td {
-        font-size: 10pt;
+        font-size: 7pt;
         vertical-align: top;
         padding: 3px 0;
     }
@@ -236,18 +236,22 @@
 
 <p>
 
-    &#10004 Precios en dólares, incluye IGV</br>
+    &#10004 Precios no incluye IGV</br>
     &#10004 Si la tarifa está en moneda extranjera, se considera al tipo de cambio del día de envío de la
     cotización.</br>
-    &#10004 El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario se procederá a
+    &#10004 El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario de retorno se procederá a
     cobrar hora adicional según tarifario y tipo de unidad.</br>
     &#10004 Tarifa sujeta a disponibilidad sin previo aviso y se confirma al momento de hecha la reserva.</br>
-    &#10004 De producirse una cancelación 24 horas antes del servicio será considerado no show y se cobrará el 100% del
+    &#10004 De producirse una cancelación 48 horas antes del servicio será considerado no show y se cobrará el 100% del
     valor total de la factura.</br>
+    &#10004 En los traslados de  aeropuerto en la tarifa esta incluido 45 minutos de parqueo, pasado ese horario
+    se procede a cobrar hora adicional.</br>
     &#10004 No se permite comer, tomar bebidas alcohólicas ni fumar en la unidad. Así como tampoco ingresar a la unidad
     en estado etílico o con efectos de haber ingerido otras sustancias.</br>
-    &#10004 No se permite realizar paradas dutante el trayecto en los servicios de Full Day, por disposición del
-    Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo previamente.</br>
+    &#10004 No se permite realizar paradas no autorizadas durante el trayecto en los servicios, por disposición del
+    Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo al momento de solicitar la reserva.</br>
+    &#10004 Por disposiciones del Ministerio de Transporte la velocidad permitida es de 90km/h. Por reglamentacion las 
+    unidades no pueden exeder la velocidad.</br>
     &#10004 En caso de daño o perjuicio por parte de los pasajeros a la unidad, será responsable la empresa contratante
     por el 100% de los gastos ocasionados.</br>
     &#10004 Es importante que todos los pasajeros porten su DNI, Adultos (según Numeral 802.2 del Artículo 80° D.S. N°
@@ -262,25 +266,22 @@
 
 
 
-<b> INCLUYE:</b>
+<b> INCLUYE:</b></br>
 
 &#10004 Uso del vehículo por los días/horas contratados.</br>
 &#10004 Conductores profesionales.</br>
 &#10004 Combustible del vehículo, peajes y parqueos</br>
 &#10004 Viáticos para los alojamientos y alimentación del conductor</br>
 
-UNIDADES FULL EQUIPO CUENTAN CON:</br>
-
-&#10004 Aire Acondicionado</br>
-&#10004 Baño químico</br>
-&#10004 TV led, DVD</br>
-&#10004 Reproductor mp3 y micrófonos </br>
-&#10004 Asientos reclinables</br>
+<b>UNIDADES  ESTÁNDAR CUENTAN CON:</b> </br>
 &#10004 Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.</br>
 &#10004 Cinturones de seguridad en todos los asientos</br>
-&#10004 Permiso de Circulación Nacional otorgado por el MTC</br>
+&#10004 Permiso de Circulación Nacional otorgado por el MTC </br>
 &#10004 SOAT Turístico contra accidentes de los pasajeros</br>
 &#10004 Monitoreo satelital con GPS</br>
-<b>Saludos Cordiales,</b>
 
+<b>Saludos Cordiales,</b>
+<p class="logo">
+    <img src="{% static 'img/tarjeta_amparo.png' %}" width="650px" height="250px">
+</p>
 {% endblock %}

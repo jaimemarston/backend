@@ -6,12 +6,12 @@ from django.db.models import Sum
 
 from gestionapp.models import (
     Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion,
-    Dcotizacion, Clientesdireccion, Banco,
+    Dliquidacion,Dcotizacion, Clientesdireccion, Banco,
     CotizacionEstado)
 
 from gestionapp.serializers import (
     DepositoSerializer, ArticuloSerializer, ClienteSerializer, ProveedorSerializer, UnidadSerializer,
-    McotizacionSerializer, DcotizacionSerializer, ClientesdireccionSerializer,
+    MliquidacionSerializer, McotizacionSerializer, DcotizacionSerializer,DliquidacionSerializer, ClientesdireccionSerializer,
     ClientesdirecciondetalleSerializer, BancoSerializer,
     CotizacionEstadoSerializer)
 
@@ -152,6 +152,15 @@ class ProveedorListMasivo(viewsets.ModelViewSet):
     serializer_class = ProveedorSerializer
 
 
+class MliquidacionList(generics.ListCreateAPIView):
+    queryset = Dliquidacion.objects.all()
+    serializer_class = MliquidacionSerializer
+       
+
+class MliquidacionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dliquidacion.objects.all()
+    serializer_class = MliquidacionSerializer
+
 class McotizacionList(generics.ListCreateAPIView):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
@@ -161,6 +170,15 @@ class McotizacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
     
+
+
+class DliquidacionList(generics.ListCreateAPIView):
+    queryset = Dliquidacion.objects.all()
+    serializer_class = DliquidacionSerializer
+
+class DliquidacionDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Dliquidacion.objects.all()
+    serializer_class = DliquidacionSerializer
 
 class DcotizacionList(generics.ListCreateAPIView):
     queryset = Dcotizacion.objects.all()
@@ -189,6 +207,10 @@ class ClientesDireccionlistdetail(generics.ListCreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = ClientesdirecciondetalleSerializer
 
+
+class LiquidacionViewSet(viewsets.ModelViewSet):
+    queryset = Dliquidacion.objects.all()
+    serializer_class = MliquidacionSerializer
 
 class CotizacionViewSet(viewsets.ModelViewSet):
     queryset = Mcotizacion.objects.all()

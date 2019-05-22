@@ -7,7 +7,9 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
+router.register(r'mliquidacion', views.LiquidacionViewSet)
 router.register(r'mcotizacion', views.CotizacionViewSet)
+
 router.register(r'cotizacion_estado', views.CotizacionEstadoViewSet)
 
 urlpatterns = [
@@ -25,10 +27,12 @@ urlpatterns = [
 
     url(r'^unidad$', views.UnidadList.as_view()),
     url(r'^unidad/(?P<pk>[0-9]+)$', views.UnidadDetail.as_view()),
-    # url(r'^mcotizacion$', views.CotizacionViewSet.as_view()),
-    # url(r'^mcotizacion/(?P<pk>[0-9]+)$', views.CotizacionViewSet.as_view()),
+
     url(r'^dcotizacion$', views.DcotizacionList.as_view()),
     url(r'^dcotizacion/(?P<pk>[0-9]+)$', views.DcotizacionDetail.as_view()),
+    
+    url(r'^dliquidacion$', views.DliquidacionList.as_view()),
+    url(r'^dliquidacion/(?P<pk>[0-9]+)$', views.DliquidacionDetail.as_view()),
 
     url(r'^clientesdireccion$', views.ClientesDireccionlist.as_view()),
     url(r'^clientesdirecciondetail$', views.ClientesDireccionlistdetail.as_view()),

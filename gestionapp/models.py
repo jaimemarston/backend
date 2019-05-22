@@ -246,6 +246,9 @@ class Chofer(Camposcomunes_personal, Camposcomunes_auditoria):
 
 
 # ARCHIVOS DE MOVIMIENTO
+# mliquidacion no debe existir el encabezado es el detalle de los servicios 
+
+
 
 class Mcotizacion(Camposcomunes_masterdoc, Camposcomunes_auditoria):
     pass
@@ -253,6 +256,10 @@ class Mcotizacion(Camposcomunes_masterdoc, Camposcomunes_auditoria):
 
 class Dcotizacion(Camposcomunes_detaildoc, Camposcomunes_auditoria):
     master = models.ForeignKey(Mcotizacion, related_name='cotizaciones', on_delete=models.CASCADE, null=True)
+
+
+class Dliquidacion(Camposcomunes_detaildoc, Camposcomunes_auditoria):
+    master = models.ForeignKey(Dcotizacion, related_name='liquidaciones', on_delete=models.CASCADE, null=True)
 
 
 class Mguia(models.Model):

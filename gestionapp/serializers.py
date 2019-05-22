@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Programagastos, Mcotizacion, Dcotizacion, \
-    Clientesdireccion, Banco, CotizacionEstado
+    Dliquidacion,Clientesdireccion, Banco, CotizacionEstado
 
 
 class BancoSerializer(serializers.ModelSerializer):
@@ -77,6 +77,17 @@ class ProveedorSerializer(serializers.ModelSerializer):
 """
 
 
+class DliquidacionSerializer(serializers.ModelSerializer):
+     class Meta:
+         model = Dliquidacion
+         fields = ('id', 'codigo', 'codpro', 'descripcion', 'unimed', 'desunimed', 'cantidad', 'precio', 'impsubtotal',
+                   'impanticipos', 'impdescuentos',
+                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
+                   'desgrupo1', 'desgrupo2', 'lugorigen', 'lugdestino', 'opcviaje',
+                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'conductor', 'nvuelo',
+                   'proveedor', 'obs', 'tipodoc', 'estado', 'estadodoc', 'posmapa', 'master' )
+
+
 class DcotizacionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dcotizacion
@@ -104,6 +115,20 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'lugorigen', 'lugdestino', 'opcviaje',
                   'estado', 'grupo', 'posmapa', 'cotizaciones')
 
+class MliquidacionSerializer(serializers.ModelSerializer):
+    liquidaciones = DliquidacionSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Dcotizacion
+        fields = ('id', 'codigo', 'descripcion', 'tipdoc', 'destipdoc', 'seriedoc', 'numerodoc', 'fechadoc',
+                  'fecentrega', 'ruc', 'desruc', 'telruc', 'paisruc', 'dptoruc', 'provruc', 'distruc', 'codpostalruc',
+                  'dirruc', 'conpag', 'desconpag', 'monedapago', 'desmonepago', 'tc_dolares', 'tc_euros', 'tc_yen',
+                  'numeroguia', 'numordserv', 'vendidopor', 'fechapago', 'autorizadosunat', 'impsubtotal',
+                  'impdescuentos',
+                  'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte',
+                  'lugorigen', 'lugdestino', 'opcviaje',
+                  'estado', 'grupo', 'posmapa', 'liquidaciones')
 
 
 class ClientesdireccionSerializer(serializers.ModelSerializer):
