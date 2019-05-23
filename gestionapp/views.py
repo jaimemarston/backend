@@ -209,7 +209,7 @@ class ClientesDireccionlistdetail(generics.ListCreateAPIView):
 
 
 class LiquidacionViewSet(viewsets.ModelViewSet):
-    queryset = Dliquidacion.objects.all()
+    queryset = Dcotizacion.objects.all()
     serializer_class = MliquidacionSerializer
 
 class CotizacionViewSet(viewsets.ModelViewSet):
