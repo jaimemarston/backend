@@ -8,7 +8,7 @@ from . import views
 router = DefaultRouter()
 router.register(r'usuarios', views.UsuarioViewSet)
 router.register(r'authenticate', Authenticate),
-
+router.register(r'usertraking', views.UsertrakingViewSet),
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]

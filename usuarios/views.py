@@ -11,14 +11,23 @@ from rest_framework.viewsets import ViewSet
 from rest_framework_jwt.utils import jwt_payload_handler
 
 from usuarios.models import Usuarios
+from usuarios.models import Usertraking
 from usuarios.serializers import TokenSerializer, AuthenticationUserSerializer
 
+
+class UsertrakingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usertraking
+        fields = '__all__'
+
+class UsertrakingViewSet(viewsets.ModelViewSet):
+    serializer_class = UsertrakingSerializer
+    queryset = Usertraking.objects.all()
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuarios
         fields = '__all__'
-
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
