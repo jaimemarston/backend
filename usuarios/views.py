@@ -11,27 +11,25 @@ from rest_framework.viewsets import ViewSet
 from rest_framework_jwt.utils import jwt_payload_handler
 
 from usuarios.models import Usuarios
-from usuarios.models import Usertraking
-from usuarios.serializers import TokenSerializer, AuthenticationUserSerializer
+from usuarios.models import UserTracking
+from usuarios.serializers import AuthenticationUserSerializer, UserTrackingSerializer, UserSerializer, \
+    UserTrackingDetailSerializer
 
-
-class UsertrakingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usertraking
-        fields = '__all__'
 
 class UsertrakingViewSet(viewsets.ModelViewSet):
-    serializer_class = UsertrakingSerializer
-    queryset = Usertraking.objects.all()
+    serializer_class = UserTrackingSerializer
+    queryset = UserTracking.objects.all()
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Usuarios
-        fields = '__all__'
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = Usuarios.objects.all()
+
+    @action(methods=['GET'], url_path='travels', detail=True, serializer_class=UserTrackingDetailSerializer)
+    def get_travels(self, request, pk):
+        queryset = UserTracking.objects.filter(user_id=pk).order_by('-id')
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
 
 
 class Authenticate(viewsets.ModelViewSet):
@@ -57,7 +55,7 @@ class Authenticate(viewsets.ModelViewSet):
                     token = jwt.encode(payload, settings.SECRET_KEY)
                     user_logged_in.send(sender=user.__class__,
                                         request=request, user=user)
-                    return Response({'token': token, 'user': AuthenticationUserSerializer(user).data},
+                    return Response(AuthenticationUserSerializer(user).data,
                                     status=status.HTTP_200_OK)
 
                 except Exception as e:

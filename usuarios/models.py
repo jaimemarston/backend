@@ -4,19 +4,24 @@ from django.db import models
 
 from usuarios.manager import UserManager
 
-class Usertraking(models.Model):
-    username = models.CharField(max_length=100, null=True, blank=True)
+
+class UserTracking(models.Model):
+    user = models.ForeignKey('Usuarios', null=True, blank=True, on_delete=models.CASCADE)
+    # username = models.CharField(max_length=100, null=True, blank=True)
     alert = models.CharField(max_length=50, null=True, blank=True)
     detail = models.TextField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    creation_date = models.DateTimeField(blank=True, null=True)
-    update_date = models.DateTimeField(blank=True, null=True)
+    creation_date = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    update_date = models.DateTimeField(blank=True, null=True, auto_now=True)
     starttask = models.DateTimeField(blank=True, null=True)
     endtask = models.DateTimeField(blank=True, null=True)
     start_longitude = models.FloatField(null=True, blank=True)
-    end_longitude   = models.FloatField(null=True, blank=True)
-    start_latitude  = models.FloatField(null=True, blank=True)
-    end_latitude    = models.FloatField(null=True, blank=True)
+    end_longitude = models.FloatField(null=True, blank=True)
+    start_latitude = models.FloatField(null=True, blank=True)
+    end_latitude = models.FloatField(null=True, blank=True)
+    rating = models.IntegerField(null=True, blank=True)
+    signature = models.ImageField(upload_to='user_tracking', null=True, blank=True)
+
 
 class Usuarios(models.Model):
     username = models.CharField(max_length=200, null=True, blank=True)
@@ -98,9 +103,10 @@ class Roles(models.Model):
         return '{} {}'.format(self.id, self.name)
 
 
-@admin.register(Usertraking)
+@admin.register(UserTracking)
 class UsertrakingAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(Usuarios)
 class UsuariosAdmin(admin.ModelAdmin):
