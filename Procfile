@@ -1,0 +1,1 @@
+web: gunicorn tipo_cambio.wsgi --log-file -
