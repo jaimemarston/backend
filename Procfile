@@ -1,1 +1,1 @@
-web: gunicorn tipo_cambio.wsgi --log-file -
+web: gunicorn msadmin.wsgi --log-file -
