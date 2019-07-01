@@ -24,7 +24,7 @@ SECRET_KEY = 'l*)bi@k9_(ri0s&mxsz^-doolu&y_k@(zunqupdf=^c13cw73b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['188.166.63.89','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['marstoncloud.com','188.166.63.89','localhost','127.0.0.1']
 #ALLOWED_HOSTS = ['188.166.63.89']
 # Application definition
 
@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'msadmin.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -103,17 +103,18 @@ DATABASES = {
     }
 }
 """
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'msgestion',
+        'NAME': 'alitour',
         'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'PASSWORD': 'MZB2LT13',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
-"""
+
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
 

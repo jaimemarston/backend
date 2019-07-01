@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Programagastos, Mcotizacion, Dcotizacion, \
+from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion, Dcotizacion, \
     Dliquidacion,Clientesdireccion, Banco, CotizacionEstado
 
 

@@ -178,23 +178,6 @@ class Unidad(models.Model):
     foto2 = models.ImageField(upload_to='unidad', null=True, blank=True)
     
 
-# Programa gastos,Mantenimiento para unidades
-class Programagastos(models.Model):
-    codigo = models.IntegerField()
-    descripcion = models.CharField(max_length=30, blank=True, null=True)
-    unidad = models.CharField(max_length=30, blank=True, null=True)
-    fechaini = models.DateField(null=True, blank=True)
-    fechafin = models.DateField(null=True, blank=True)
-
-
-class Programagasto(models.Model):
-    codigo = models.IntegerField()
-    descripcion = models.CharField(max_length=30, blank=True, null=True)
-    unidad = models.CharField(max_length=30, blank=True, null=True)
-    fechaini = models.DateField(null=True, blank=True)
-    fechafin = models.DateField(null=True, blank=True)
-
-
 class Articulo(models.Model):
     codigo = models.IntegerField()
     descripcion = models.CharField(max_length=60)
@@ -212,13 +195,6 @@ class Articulo(models.Model):
     aplicadscto = models.IntegerField(default=0)
     cc1 = models.CharField(max_length=60, blank=True, null=True)
     descc1 = models.CharField(max_length=60, blank=True, null=True)
-
-
-class Centrodecosto1(models.Model):
-    codigo = models.IntegerField()
-    descripcion = models.CharField(max_length=60, blank=True, null=True)
-    totingresos = models.IntegerField(default=0)
-    totgastos = models.IntegerField(default=0)
 
 
 class Banco(models.Model):
