@@ -51,12 +51,12 @@ SITE_ID = 1
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-REST_SESSION_LOGIN = False
-CORS_ORIGIN_ALLOW_ALL = True
-SECURE_SSL_REDIRECT = True
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+# REST_SESSION_LOGIN = False
+# CORS_ORIGIN_ALLOW_ALL = True
+# SECURE_SSL_REDIRECT = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # activar para usar token
 
 REST_FRAMEWORK = {
@@ -111,8 +111,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'alitour',
-        'USER': 'postgres',
-        'PASSWORD': 'MZB2LT13',
+        'USER': 'master',
+        'PASSWORD': 'mzb2lt13',
         'HOST': 'localhost',
         'PORT': '5432',
     }
