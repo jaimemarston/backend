@@ -113,8 +113,8 @@ DATABASES = {
         'NAME': 'alitour',
         'USER': 'postgres',
         'PASSWORD': 'MZB2LT13',
-        'HOST': '',
-        'PORT': '',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
