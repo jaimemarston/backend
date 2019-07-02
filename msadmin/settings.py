@@ -111,7 +111,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'alitour',
-        'USER': 'master',
+        'USER': 'postgres',
         'PASSWORD': 'mzb2lt13',
         'HOST': 'localhost',
         'PORT': '5432',
