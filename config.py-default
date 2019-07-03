@@ -5,7 +5,7 @@ SECRET_KEY = 'l*)bi@k9_(ri0s&mxsz^-doolu&y_k@(zunqupdf=^c13cw73b'
 STATIC_URL = '/alitourstatic/'
 STATIC_ROOT = '/home/marston/alitour/static'
 
-DATABASE = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'alitour',
