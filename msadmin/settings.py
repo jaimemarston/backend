@@ -22,10 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'l*)bi@k9_(ri0s&mxsz^-doolu&y_k@(zunqupdf=^c13cw73b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['marstoncloud.com','188.166.63.89','localhost','127.0.0.1']
-#ALLOWED_HOSTS = ['188.166.63.89']
+#ALLOWED_HOSTS = ['marstoncloud.com','188.166.63.89','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,15 +52,15 @@ SITE_ID = 1
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# SECURE_CONTENT_TYPE_NOSNIFF = True
-# SECURE_SSL_REDIRECT = True
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SECURE = True
-# SECURE_BROWSER_XSS_FILTER = True
-# SECURE_HSTS_SECONDS = 518400
-# SECURE_HSTS_PRELOAD = True
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_HSTS_SECONDS = 518400
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+X_FRAME_OPTIONS = 'DENY'
 
 # REST_SESSION_LOGIN = False
 # CORS_ORIGIN_ALLOW_ALL = True
