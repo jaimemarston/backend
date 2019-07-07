@@ -1,5 +1,17 @@
 # backend
 
+Sincornizar archivos
+```sh
+git pull origin master
+```
+
+En servidor reiniciar el apache2 
+```sh
+systemctl restart apache2
+```
+Si hay migraciones 
+- Activar el virtualenv sourvece venv/bin/activate
+- Correr Migraciones
 
 ## Contributing
 * [Author](https://www.marstonsoftware.com) - My Company 
