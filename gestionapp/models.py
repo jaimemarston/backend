@@ -104,6 +104,20 @@ class Camposcomunes_detaildoc(models.Model):
     proveedor = models.CharField(max_length=50, null=True, blank=True)
     tipodoc = models.CharField(max_length=50, null=True, blank=True)
     obs = models.CharField(max_length=50, null=True, blank=True)
+    #user_tracking
+    alert = models.CharField(max_length=50, null=True, blank=True)
+    detail = models.TextField(null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    creation_date = models.DateTimeField(blank=True, null=True, auto_now_add=True)
+    update_date = models.DateTimeField(blank=True, null=True, auto_now=True)
+    starttask = models.DateTimeField(blank=True, null=True)
+    endtask = models.DateTimeField(blank=True, null=True)
+    start_longitude = models.FloatField(null=True, blank=True)
+    end_longitude = models.FloatField(null=True, blank=True)
+    start_latitude = models.FloatField(null=True, blank=True)
+    end_latitude = models.FloatField(null=True, blank=True)
+    rating = models.IntegerField(null=True, blank=True)
+    signature = models.ImageField(upload_to='user_tracking', null=True, blank=True)
     estadodoc = models.ForeignKey('CotizacionEstado', blank=True, null=True, on_delete=models.CASCADE)
     
     
