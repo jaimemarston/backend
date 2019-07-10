@@ -33,10 +33,14 @@ class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = ('id', 'codigo', 'nombre', 'ruc',
-                  'telefono1', 'telefono2', 'telefono3', 'contacto', 'telcontacto',
-                  'direccion', 'correo', 'paginaweb', 'tipocc', 'destipocc',
-                  'banco_nombre1', 'banco_cuenta1', 'banco_moneda1', 'banco_nombre2', 'banco_cuenta2',
-                  'banco_moneda2', 'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
+                  'telefono1', 'telefono2', 'telefono3',
+                  'contacto', 'telcontacto','correo',
+                  'contacto2', 'telcontacto2','correo2',
+                  'contacto3', 'telcontacto3','correo3',
+                  'direccion', 'paginaweb', 'tipocc', 'destipocc',
+                  'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
+                  'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
+                  'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
 
     def create(self, validated_data):
         last_id = Cliente.objects.last().id if Cliente.objects.last() else 1
@@ -57,10 +61,15 @@ class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proveedor
         fields = ('id', 'codigo', 'nombre', 'ruc',
-                  'telefono1', 'telefono2', 'telefono3', 'contacto', 'telcontacto',
-                  'direccion', 'correo', 'paginaweb', 'tipocc', 'destipocc',
-                  'banco_nombre1', 'banco_cuenta1', 'banco_moneda1', 'banco_nombre2', 'banco_cuenta2',
-                  'banco_moneda2', 'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
+                   'telefono1', 'telefono2', 'telefono3',
+                   'contacto', 'telcontacto','correo',
+                   'contacto2', 'telcontacto2','correo2',
+                   'contacto3', 'telcontacto3','correo3',
+                   'direccion', 'paginaweb', 'tipocc', 'destipocc',
+                   'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
+                   'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
+                   'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
+
 
     def create(self, validated_data):
         last_id = Proveedor.objects.last().id if Proveedor.objects.last() else 1
