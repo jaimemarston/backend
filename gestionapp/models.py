@@ -178,8 +178,8 @@ class Camposcomunes_personal(models.Model):
     fechafin = models.DateField(null=True, blank=True)
     grupo = models.CharField(max_length=100, blank=True, null=True)
     pais = models.CharField(max_length=50, blank=True, null=True)
-    idioma = models.CharField(max_length=50, blank=True, null=True)
-
+    idioma = models.CharField(max_length=80, blank=True, null=True)
+    categprov = models.CharField(max_length=80, blank=True, null=True)
 
     class Meta:
         abstract = True

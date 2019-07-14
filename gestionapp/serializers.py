@@ -3,7 +3,41 @@ from rest_framework import serializers
 from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion, Dcotizacion, \
     Dliquidacion,Clientesdireccion, Banco, CotizacionEstado
 
+class Base64ImageField(serializers.ImageField):
+    
+    def to_internal_value(self, data):
 
+        # Check if this is a base64 string
+        if isinstance(data, six.string_types):
+            # Check if the base64 string is in the "data:" format
+            if 'data:' in data and ';base64,' in data:
+                # Break out the header from the base64 content
+                header, data = data.split(';base64,')
+
+            # Try to decode the file. Return validation error if it fails.
+            try:
+                decoded_file = base64.b64decode(data)
+            except TypeError:
+                self.fail('invalid_image')
+
+            # Generate file name:
+            file_name = str(uuid.uuid4())[:12]  # 12 characters are more than enough.
+            # Get the file name extension:
+            file_extension = self.get_file_extension(file_name, decoded_file)
+
+            complete_file_name = "%s.%s" % (file_name, file_extension,)
+
+            data = ContentFile(decoded_file, name=complete_file_name)
+
+        return super(Base64ImageField, self).to_internal_value(data)
+
+    def get_file_extension(self, file_name, decoded_file):
+
+        extension = imghdr.what(file_name, decoded_file)
+        extension = "jpg" if extension == "jpeg" else extension
+
+        return extension
+        
 class BancoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Banco
@@ -40,7 +74,7 @@ class ClienteSerializer(serializers.ModelSerializer):
                   'direccion', 'paginaweb', 'tipocc', 'destipocc',
                   'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
                   'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
-                  'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
+                  'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma', 'categprov')
 
     def create(self, validated_data):
         last_id = Cliente.objects.last().id if Cliente.objects.last() else 1
@@ -68,7 +102,7 @@ class ProveedorSerializer(serializers.ModelSerializer):
                    'direccion', 'paginaweb', 'tipocc', 'destipocc',
                    'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
                    'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
-                   'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma')
+                   'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma', 'categprov')
 
 
     def create(self, validated_data):
@@ -98,6 +132,7 @@ class DliquidacionSerializer(serializers.ModelSerializer):
 
 
 class DcotizacionSerializer(serializers.ModelSerializer):
+    signature = Base64ImageField(max_length=None, use_url=True, required=False, allow_null=True)
     class Meta:
         model = Dcotizacion
         fields = ('id', 'codigo', 'codpro', 'descripcion', 'unimed', 'desunimed', 'cantidad', 'precio', 'impsubtotal',
