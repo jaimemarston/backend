@@ -22,12 +22,13 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser
 import base64
 from django.templatetags.static import static
 
 # Create your views here.
 from gestionapp.utils import render_to_pdf, PDFTemplateView, image_as_base64
-
+from procesar import cargar_data
 
 @api_view(['GET', 'POST'])
 def masivo_list(request):
@@ -118,8 +119,17 @@ class ClienteListMasivo(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
 
 
+class ClienteUploadFile(APIView):
+    parser_classes = (MultiPartParser,)
+    def post(self, request):
+        file = request.FILES['file']
+        file_data = file.read();
+        cargar_data(file_data)
+        # Parse data
+        return Response(status=204)
+
 class ProveedorList(generics.ListCreateAPIView):
-    queryset = Proveedor.objects.all()
+    queryset = Proveedor.objects.order_by('nombre')
     serializer_class = ProveedorSerializer
 
     # para filtrar datos
@@ -155,7 +165,7 @@ class ProveedorListMasivo(viewsets.ModelViewSet):
 class MliquidacionList(generics.ListCreateAPIView):
     queryset = Dliquidacion.objects.all()
     serializer_class = MliquidacionSerializer
-       
+
 
 class MliquidacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Dliquidacion.objects.all()

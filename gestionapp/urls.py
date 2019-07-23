@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^articulo/(?P<pk>[0-9]+)$', views.ArticuloDetail.as_view()),
 
     url(r'^cliente$', views.ClienteList.as_view()),
+    url(r'^cliente/uploadfiles$', views.ClienteUploadFile.as_view()),
     url(r'^cliente/(?P<pk>[0-9]+)$', views.ClienteDetail.as_view()),
     url(r'^clientemasivo$', views.masivo_list),
 

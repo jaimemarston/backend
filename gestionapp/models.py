@@ -145,20 +145,20 @@ class Camposcomunes_personal(models.Model):
     codigo = models.CharField(max_length=15, blank=True, null=True)
     ruc = models.CharField(max_length=15, blank=True, null=True)
     nombre = models.CharField(max_length=100, blank=True, null=True)
-    telefono1 = models.CharField(max_length=20, blank=True, null=True)
-    telefono2 = models.CharField(max_length=20, blank=True, null=True)
-    telefono3 = models.CharField(max_length=20, blank=True, null=True)
+    telefono1 = models.CharField(max_length=30, blank=True, null=True)
+    telefono2 = models.CharField(max_length=30, blank=True, null=True)
+    telefono3 = models.CharField(max_length=30, blank=True, null=True)
     contacto = models.CharField(max_length=100, blank=True, null=True)
-    telcontacto = models.CharField(max_length=20, blank=True, null=True)
+    telcontacto = models.CharField(max_length=30, blank=True, null=True)
     correo = models.CharField(max_length=150, blank=True, null=True)
     contacto2 = models.CharField(max_length=100, blank=True, null=True)
-    telcontacto2 = models.CharField(max_length=20, blank=True, null=True)
+    telcontacto2 = models.CharField(max_length=30, blank=True, null=True)
     correo2 = models.CharField(max_length=150, blank=True, null=True)
     contacto3 = models.CharField(max_length=100, blank=True, null=True)
-    telcontacto3 = models.CharField(max_length=20, blank=True, null=True)
+    telcontacto3 = models.CharField(max_length=30, blank=True, null=True)
     correo3 = models.CharField(max_length=150, blank=True, null=True)
     contacto4 = models.CharField(max_length=100, blank=True, null=True)
-    telcontacto4 = models.CharField(max_length=20, blank=True, null=True)
+    telcontacto4 = models.CharField(max_length=30, blank=True, null=True)
     correo4 = models.CharField(max_length=150, blank=True, null=True)
     direccion = models.CharField(max_length=150, blank=True, null=True)
     paginaweb = models.CharField(max_length=150, blank=True, null=True)
@@ -173,6 +173,10 @@ class Camposcomunes_personal(models.Model):
     banco_cuenta2 = models.CharField(max_length=100, blank=True, null=True)
     banco_nomdest2 = models.CharField(max_length=100, blank=True, null=True)
     banco_moneda2 = models.CharField(max_length=20, blank=True, null=True)
+    banco_nombre3 = models.CharField(max_length=100, blank=True, null=True)
+    banco_cuenta3 = models.CharField(max_length=100, blank=True, null=True)
+    banco_nomdest3 = models.CharField(max_length=100, blank=True, null=True)
+    banco_moneda3 = models.CharField(max_length=20, blank=True, null=True)
     fechanac = models.DateField(null=True, blank=True, help_text="Ingrese si esta activo u otro stado ")
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
@@ -180,6 +184,7 @@ class Camposcomunes_personal(models.Model):
     pais = models.CharField(max_length=50, blank=True, null=True)
     idioma = models.CharField(max_length=80, blank=True, null=True)
     categprov = models.CharField(max_length=80, blank=True, null=True)
+    tipocontrato = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         abstract = True
@@ -195,14 +200,32 @@ class Unidad(models.Model):
     codigo = models.CharField(max_length=15, blank=True, null=True)
     descripcion = models.CharField(max_length=30, blank=True, null=True)
     placa = models.CharField(max_length=30, blank=True, null=True)
-    npasajeros = models.CharField(max_length=150, blank=True, null=True)
+    marca = models.CharField(max_length=50, blank=True, null=True)
+    modelo = models.CharField(max_length=50, blank=True, null=True)
+    aniofab = models.IntegerField(default=0, null=True, blank=True)
+    npasajeros = models.CharField(max_length=100, blank=True, null=True)
     color = models.CharField(max_length=50, blank=True, null=True)
+    combustible = models.CharField(max_length=50, blank=True, null=True)
+    empresa = models.CharField(max_length=150, blank=True, null=True)
+    cadsoat = models.DateField(null=True, blank=True)
+    revtec = models.DateField(null=True, blank=True)
+    segveh = models.DateField(null=True, blank=True)
+    mantglp = models.DateField(null=True, blank=True)
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
+    docbrevete = models.FileField(upload_to='documents/', null=True, blank=True)
+    docdni = models.FileField(upload_to='documents/', null=True, blank=True)
+    doccursos = models.FileField(upload_to='documents/', null=True, blank=True)
+    docantepoli = models.FileField(upload_to='documents/', null=True, blank=True)
+    docantepena = models.FileField(upload_to='documents/', null=True, blank=True)
     foto1 = models.ImageField(upload_to='unidad', null=True, blank=True)
     foto2 = models.ImageField(upload_to='unidad', null=True, blank=True)
-    
 
+    # Guias de Turismo
+class Guia(Camposcomunes_personal, Camposcomunes_auditoria):
+    foto1 = models.ImageField(upload_to='guia', null=True, blank=True)
+    pass
+    
 class Articulo(models.Model):
     codigo = models.IntegerField()
     descripcion = models.CharField(max_length=60)
@@ -243,6 +266,8 @@ class Transporte(Camposcomunes_personal, Camposcomunes_auditoria):
 
 
 class Chofer(Camposcomunes_personal, Camposcomunes_auditoria):
+    foto1 = models.ImageField(upload_to='unidad', null=True, blank=True)
+
     pass
 
 

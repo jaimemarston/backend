@@ -102,6 +102,7 @@ class ProveedorSerializer(serializers.ModelSerializer):
                    'direccion', 'paginaweb', 'tipocc', 'destipocc',
                    'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
                    'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
+                   'banco_nombre3', 'banco_cuenta3','banco_nomdest3','banco_moneda3',
                    'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma', 'categprov')
 
 
