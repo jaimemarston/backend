@@ -6,13 +6,13 @@ from django.db.models import Sum
 
 from gestionapp.models import (
     Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion,
-    Dliquidacion,Dcotizacion, Clientesdireccion, Banco,
+    Dliquidacion,Dcotizacion, Clientesdireccion, Banco, Chofer, Guia,
     CotizacionEstado)
 
 from gestionapp.serializers import (
     DepositoSerializer, ArticuloSerializer, ClienteSerializer, ProveedorSerializer, UnidadSerializer,
     MliquidacionSerializer, McotizacionSerializer, DcotizacionSerializer,DliquidacionSerializer, ClientesdireccionSerializer,
-    ClientesdirecciondetalleSerializer, BancoSerializer,
+    ClientesdirecciondetalleSerializer, BancoSerializer, ChoferSerializer, GuiaSerializer,
     CotizacionEstadoSerializer)
 
 from django.contrib.auth.models import User
@@ -57,6 +57,26 @@ class UnidadList(generics.ListCreateAPIView):
 class UnidadDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Unidad.objects.all()
     serializer_class = UnidadSerializer
+
+
+# Choferes / Conductores
+
+class ChoferList(generics.ListCreateAPIView):
+    queryset = Chofer.objects.all()
+    serializer_class = ChoferSerializer
+
+class ChoferDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Chofer.objects.all()
+    serializer_class = ChoferSerializer
+
+
+# Guia de Turismo
+class GuiaList(generics.ListCreateAPIView):
+    queryset = Guia.objects.all()
+    serializer_class = GuiaSerializer
+class GuiaDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Guia.objects.all()
+    serializer_class = GuiaSerializer
 
 
 class DepositoList(generics.ListCreateAPIView):

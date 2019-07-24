@@ -29,6 +29,12 @@ urlpatterns = [
     url(r'^unidad$', views.UnidadList.as_view()),
     url(r'^unidad/(?P<pk>[0-9]+)$', views.UnidadDetail.as_view()),
 
+    url(r'^chofer$', views.ChoferList.as_view()),
+    url(r'^chofer/(?P<pk>[0-9]+)$', views.ChoferDetail.as_view()),
+
+    url(r'^guia$', views.GuiaList.as_view()),
+    url(r'^guia/(?P<pk>[0-9]+)$', views.GuiaDetail.as_view()),
+
     url(r'^dcotizacion$', views.DcotizacionList.as_view()),
     url(r'^dcotizacion/(?P<pk>[0-9]+)$', views.DcotizacionDetail.as_view()),
     

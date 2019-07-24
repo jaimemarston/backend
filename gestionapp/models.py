@@ -267,7 +267,6 @@ class Transporte(Camposcomunes_personal, Camposcomunes_auditoria):
 
 class Chofer(Camposcomunes_personal, Camposcomunes_auditoria):
     foto1 = models.ImageField(upload_to='unidad', null=True, blank=True)
-
     pass
 
 

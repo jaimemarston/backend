@@ -35,6 +35,8 @@ class Usuarios(models.Model):
     telefono2 = models.CharField(max_length=50, null=True, blank=True)
     role = models.ForeignKey('Roles', null=True, blank=True, on_delete=models.CASCADE)
     password = models.CharField(max_length=128, null=True, blank=True)
+    cargo = models.CharField(max_length=100, null=True, blank=True)
+    dni = models.CharField(max_length=20, null=True, blank=True)
 
     last_login = models.DateTimeField(blank=True, null=True)
     is_active = models.BooleanField(default=True)

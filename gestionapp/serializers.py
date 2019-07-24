@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Mcotizacion, Dcotizacion, \
+from gestionapp.models import Deposito, Articulo, Cliente, Proveedor, Unidad, Chofer, Guia, Mcotizacion, Dcotizacion, \
     Dliquidacion,Clientesdireccion, Banco, CotizacionEstado
 
 class Base64ImageField(serializers.ImageField):
@@ -53,7 +53,7 @@ class DepositoSerializer(serializers.ModelSerializer):
 class UnidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Unidad
-        fields = ('id', 'codigo', 'descripcion', 'placa', 'npasajeros', 'color', 'foto1', 'foto2')
+        fields = '__all__'
 
 
 class ArticuloSerializer(serializers.ModelSerializer):
@@ -185,6 +185,18 @@ class ClientesdirecciondetalleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = ('nombre', 'ruc', 'clientesdirecciones')
+
+
+class ChoferSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chofer
+        fields = '__all__'
+
+
+class GuiaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Guia
+        fields = '__all__'
 
 
 class CotizacionEstadoSerializer(serializers.ModelSerializer):
