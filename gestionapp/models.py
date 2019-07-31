@@ -224,6 +224,7 @@ class Unidad(models.Model):
     # Guias de Turismo
 class Guia(Camposcomunes_personal, Camposcomunes_auditoria):
     foto1 = models.ImageField(upload_to='guia', null=True, blank=True)
+    
     pass
     
 class Articulo(models.Model):
