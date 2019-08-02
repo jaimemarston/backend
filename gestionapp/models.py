@@ -10,7 +10,6 @@ COLORES = (
     ('4', 'Azul'),
 )
 
-
 class Camposcomunes_masterdoc(models.Model):
     codigo = models.IntegerField(default=0)
     descripcion = models.CharField(max_length=30, null=True, blank=True)
@@ -267,7 +266,14 @@ class Transporte(Camposcomunes_personal, Camposcomunes_auditoria):
 
 
 class Chofer(Camposcomunes_personal, Camposcomunes_auditoria):
-    foto1 = models.ImageField(upload_to='unidad', null=True, blank=True)
+    foto1 = models.ImageField(upload_to='documents', null=True, blank=True)
+    dnivence = models.DateField(null=True, blank=True)
+    cursos =  models.CharField(max_length=150, blank=True, null=True)
+    docbrevete = models.FileField(upload_to='documents/', null=True, blank=True)
+    brevete = models.CharField(max_length=50, blank=True, null=True)
+    brevetevence = models.DateField(null=True, blank=True)
+    docdni = models.FileField(upload_to='documents/', null=True, blank=True)
+    docpasaporte = models.FileField(upload_to='documents/', null=True, blank=True)
     pass
 
 
