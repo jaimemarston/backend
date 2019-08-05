@@ -158,5 +158,5 @@ STATIC_URL = '/alitourstatic/'
 
 MEDIA_URL = '/media/'
 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = '/home/marston/alitour/backend/media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = '/home/marston/alitour/backend/media'
