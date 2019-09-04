@@ -207,9 +207,13 @@ class Unidad(models.Model):
     combustible = models.CharField(max_length=50, blank=True, null=True)
     empresa = models.CharField(max_length=150, blank=True, null=True)
     cadsoat = models.DateField(null=True, blank=True)
+    empsoat = models.CharField(max_length=100, blank=True, null=True)
     revtec = models.DateField(null=True, blank=True)
+    emprevtec = models.CharField(max_length=100, blank=True, null=True)
     segveh = models.DateField(null=True, blank=True)
+    empsegveh = models.CharField(max_length=100, blank=True, null=True)
     mantglp = models.DateField(null=True, blank=True)
+    empglp   = models.CharField(max_length=100, blank=True, null=True)
     fechaini = models.DateField(null=True, blank=True)
     fechafin = models.DateField(null=True, blank=True)
     docbrevete = models.FileField(upload_to='documents/', null=True, blank=True)
@@ -222,8 +226,9 @@ class Unidad(models.Model):
 
     # Guias de Turismo
 class Guia(Camposcomunes_personal, Camposcomunes_auditoria):
-    foto1 = models.ImageField(upload_to='guia', null=True, blank=True)
-    
+    foto1 = models.ImageField(upload_to='documents/', null=True, blank=True)
+    foto2 = models.ImageField(upload_to='documents/', null=True, blank=True)
+    foto3 = models.ImageField(upload_to='documents/', null=True, blank=True)
     pass
     
 class Articulo(models.Model):
