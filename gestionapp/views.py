@@ -275,8 +275,12 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'Transporte', 'Total']
             fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
             headerset = Mcotizacion.objects.filter(id=pk).values()
+            # rigv =      list(Mcotizacion.objects.filter(id=pk).values('impigv'))[0] or 0
+            rigv = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
+
             queryset = Dcotizacion.objects.filter(master=pk).values()
             rimptotal = list(Dcotizacion.objects.filter(master=pk).aggregate(Sum('imptotal')).values())[0] or 0
+            
             imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')[0]) or ''
             #imagen_obt = list(Unidad.objects.filter(descripcion=imagenes).values_list())
             imagen_obt1 = list(Unidad.objects.values_list('foto1')[0])
@@ -291,6 +295,8 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields=fields,
             fields_db=fields_db,
             resultado_total=rimptotal,
+            resultado_dcto=0,
+            resultado_igv=rigv,
             muestra_imagenes1=imagen_obt1,
             muestra_imagenes2=imagen_obt2,
             **kwargs

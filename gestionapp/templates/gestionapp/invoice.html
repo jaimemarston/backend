@@ -4,37 +4,42 @@
 {% block layout_style %}
 {% endblock %}
 {% block extra_style %}
+
 <style type="text/css">
     html {
         font-family: "Helvetica", "sans-serif";
         color: #333333;
     }
 
-    p {
+    /* p {
         margin: 0 0 6px 0;
         font-size: 8pt;
-    }
+    } */
 
-    table {
+    /* table {
         line-height: 140%;
         margin-bottom: 20px;
         page-break-inside: avoid;
-    }
+    } */
 
     table.bordered {
         border-top: 0.1pt solid #999999;
         border-bottom: 0.1pt solid #999999;
     }
+    
+    .noborder {
+        border: none
+    }
 
     tr,
     td,
     th {
-        border: none;
+        border: 0.1pt solid #999999;
     }
 
     th {
         font-size: 7pt;
-        border-bottom: 0.1pt solid #999999;
+        border-bottom: 0.1pt solid #000000;
         padding: 3px 0;
         line-height: 1;
         font-weight: bold;
@@ -135,14 +140,14 @@
 
 {% block page_header %}
 <div id="page-header">
-    <div class="header">
+    <div >
         <p class="logo">
             <img src="{% static 'img/logo.jpg' %}" width="650px" height="250px">
         </p>
         <p>
             {{ 'Av Ricardo Palma 781' }} {{ 'Miraflores' }} <br />
             {{ 'LIMA - PERU' }}<br />
-            {{ today|date:"DATETIME_FORMAT" }}
+            {{ today|date:"DATE_FORMAT" }}
 
         </p>
     </div>
@@ -158,12 +163,12 @@
     </div>
 
     <div class="main">
-        <h3>{{ 'DETALLE DE LA COTIZACION' }}</h3>
 
-        <table class="bordered bottom-20">
+
+        <table  class="bordered " >
             <tr>
                 {% for field in headerset %}
-                <td class="item-name"><strong>Numero de Cotizacion:</strong>{{ field.codigo }}</td>
+                <td class="item-name"><strong>Numero de Cotizacion:{{ field.codigo }}</strong></td>
                 <td class="item-name"><strong>Dirigido a : </strong>{{ field.desruc }}</td>
                 <td class="item-name"><strong>Expresado en : </strong>{{ field.desmonepago }}</td>
 
@@ -172,7 +177,7 @@
 
         </table>
 
-        <table>
+        <table class="bordered bottom-20" >
             <thead>
                 <tr>
                     {% for field in fields %}
@@ -180,9 +185,11 @@
                     {% endfor %}
                 </tr>
             </thead>
-            <tbody>
+            <h3>{{ 'DETALLE DE LA COTIZACION' }}</h3>
+
+            <tbody >
                 {% for q in cotizacion %}
-                <tr>
+                <tr  >
                     {% for k in fields_db %}
                     <td class="text-left">{{ q|get_item:k }}</td>
                     {% endfor %}
@@ -190,37 +197,56 @@
                 {% endfor %}
             </tbody>
         </table>
-
-        <table class="bottom-20">
-            <tr>
-                <td class="text-right"><strong>Total Presupuesto</strong></td>
-                <td class="text-right"><strong>{{resultado_total}}</strong></td>
+        
+        <table >
+            <tfoot  >
+                <tr class="noborder">
+                    <td class="noborder" colspan="4"></td>
+                    <td >SUBTOTAL</td>
+                    <td >{{resultado_total}}</td>
+                </tr>
+                <tr class="noborder">
+                    <td class="noborder" colspan="4"></td>
+                    <td >DESCUENTO</td>
+                    <td>{{resultado_dcto}}</td>
+                </tr>
+                <tr class="noborder">
+                    <td class="noborder" colspan="4"></td>
+                    <td >IGV</td>
+                    <td>{{resultado_igv}}</td>
+                </tr>
+                <tr class="noborder">
+                    <td class="noborder" colspan="4"></td>
+                    <td >TOTAL</td>
+                    <td>{{resultado_total}}</td>
+                </tr>
+            </tfoot>
+            <!-- <tr>
                 <td class="text-right"><strong>{{muestra_imagenes}}</strong></td>
-                <!--<img src="{% static 'img/logo.jpg' %}" width="150px" height="150px">-->
-                <!--<img src='/media/unidad/linked.png' width="150px" height="150px">-->
 
-            </tr>
+            </tr> -->
         </table>
-        <table class="bottom-20">
+        <table class="bottom-20 noborder">
             {% for img1 in muestra_imagenes1 %}
-            <tr>
-                <td class="text-left">/media/{{img1}}</td>
+            <tr class="noborder">
+                <td class="text-left noborder">/media/{{img1}}</td>
                 <img src=/media/{{img1}} width="150px" height="150px">
                 <br>
                 <!--<img src="/media/unidad/linked.png" width="150px" height="150px">-->
             </tr>
             {% endfor %}
         </table>
-        <table class="bottom-20">
-                {% for img1 in muestra_imagenes2 %}
-                <tr>
-                    <td class="text-left">/media/{{img1}}</td>
-                    <img src=/media/{{img1}} width="150px" height="150px">
-                    <br>
-                    <!--<img src="/media/unidad/linked.png" width="150px" height="150px">-->
-                </tr>
-                {% endfor %}
-            </table>
+        <!-- <table class="bottom-20">
+            {% for img1 in muestra_imagenes2 %}
+            <tr class="noborder">
+                <td class="text-left">/media/{{img1}}</td>
+                <img src=/media/{{img1}} width="150px" height="150px">
+                <br>
+               
+            </tr>
+            {% endfor %}
+        </table>  -->
+        
     </div>
 </div>
 
@@ -233,52 +259,104 @@
 
 <br> <i>Para confirmar la reserva, necesitamos datos de los pasajeros, # de vuelos y nombre del hotel. </i> </br>
 <b>CONDICIONES</b>
+<b>SERVICIO ESPECIAL DE TRANSPORTE TURISTICO</b></br>
+</br>
+CONDICIONES</br>
+</br>
+Si la tarifa está en moneda extranjera, se considera al tipo de cambio del día de envío de la cotización.</br>
+El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario se procederá a cobrar hora adicional según tarifario y tipo de unidad.</br>
+Tarifa sujeta a disponibilidad sin previo aviso y se confirma al momento de hecha la reserva.</br>
+De producirse una cancelación 24 horas antes del servicio será considerado no show y  se cobrará el 100% del valor total de la factura.</br>
+El Precio está dado en función a lo solicitado pero de pasar el horario previsto se procederá a cobrar horas adicionales según tipo de unidad.</br>
+</br>
 
-<p>
+RESTRICCIONES</br> 
+</br>
+No se permite comer, tomar bebidas alcohólicas ni fumar en la unidad. Así como tampoco ingresar a la unidad en estado etílico o con efectos de haber ingerido otras sustancias.</br>
+No se permite realizar paradas dutante el trayecto en los servicios de Full Day, por disposición del Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo previamente.</br>
+En caso de daño o perjuicio por parte de los pasajeros a la unidad, será responsable la empresa contratante por el 100% de los gastos ocasionados.</br>
+</br>
+ADVERTENCIAS </br>
+</br>
+Es importante que todos los pasajeros porten su DNI, Adultos (según Numeral 802.2 del Artículo 80° D.S. N° 017 - 2009 -MTC)  y Niños (según Artículo 14° - D. S. N° 007- 2008 IN), si salen fuera de Lima, ya que TOLERANCIA CERO lo solicitará.</br>
+Niños de 04 años a más, van en sus respectivos asientos.</br>
+Según norma del MTC los vehículos de turismo no pueden ir a mas de 90km de velocidad, siendo controlados por GPS.</br>
+Ali Tour Perú, sólo actúa como intermediario entre las entidades proveedoras de los paquetes y/o servicios turísticos contratados y el USUARIO, siendo responsable única y exclusivamente por la organización de los mismos. Por lo tanto, el USUARIO no puede imputar responsabilidad a Alitour por aquellas causas que estén fuera de su competencia. Alitour no es responsable de perjuicio o retraso alguno derivado de circunstancias ajenas a su control. Estas circunstancias incluyen, pero no se limitan a causas fortuitas: desastres naturales como terremotos, ciclones, tormentas, huracanes, inundaciones, niebla, etc. Así como a causas de fuerza mayor: guerras, accidentes, huelgas, disturbios, manifestaciones o conmoción civil, etc, y a cualquier pérdida, daño, accidente o alguna otra irregularidad que pudiera ocurrirle al USUARIO FINAL.</br>
+</br>
+UNIDADES CON CONDUCTOR </br>
+</br>
+INCLUYE:</br>
+</br>
+Uso del vehículo por los días/horas contratados.</br>
+Conductores profesionales.</br>
+Combustible del vehículo, peajes y parqueos.</br>
+Viáticos para los alojamientos y alimentación del conductor.</br>
+Supervición permanente.</br>
+</br>
+FULL EQUIPO CUENTAN CON:</br>
+</br>
+Aire Acondicionado</br>
+Baño químico (en el caso de buses)</br>
+TV led,  DVD (en el caso de buses)</br>
+Reproductor mp3 y micrófonos </br>
+Asientos reclinables</br>
+Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.</br>
+Cinturones de seguridad en todos los asientos</br>
+Permiso de Circulación Nacional otorgado por el MTC</br>
+SOAT Turístico contra accidentes de los pasajeros</br>
+Póliza “adicional” de seguro de accidentes para pasajeros</br>
+Monitoreo satelital con GPS</br>
+</br>
+BUSES ESTANDAR</br>
+</br>
+Asientos reclinables</br>
+Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.</br>
+Cinturones de seguridad en todos los asientos</br>
+SOAT Turístico contra accidentes de los pasajeros</br>
+Solo rutas dentro de Lima Metropolitana.</br>
+</br>
+UNIDADES SIN CONDUCTOR </br>
+</br>
+El arrendatario es responsable de todas las multas por violación del reglamento de tránsito y pago de peajes , aun cuando la misma sea notificada con posterioridad al periodo de alquiler.</br>
+El arrendatario acepta toda responsabilidad por pago del deducible del seguro y/o lucro cesante.</br>
+La franquisia vigente es de $500.00 dolares o 20 % de la reparación.</br>
+El uso del vehículo será solo en pistas asfaltadas.</br>
+La devolución anticipada del vehículo no tendráreembolso.</br>
+De devolver la unidad sucia se cargará $25.00 dolares por auto sedan o $35.00 por camioneta.</br>
+En caso de siniestro o accidente de cualquier naturalez estará obligado a dar aviso a Ali tour Peru , en un plazo no mayor a 24 hrs , detallando los hechos y daños ocuridos al vehículo y a terceros comprometiendose a efectuar inmediastamente despuesde de ocurrido el siniestro o accidente la denuncia policial, dosaje y peritaje técnico del vehóiculo.</br>
+</br>
+INCLUYE</br> 
+</br>
+200 km diarios free, pasado los 200 kms  cada km tiene un costo de $1.00 dólar adicional.</br>
+Seguro SOAT.</br>
+Poliza de seguro particular todo riesgo.</br>
+Unidades full equipo (automática o mecánica), especificar en el pedido.</br>
+Aire Acondicionado</br>
+</br>
+Las tarifas no incluyen:</br>
+</br>
+Lucro cesante (días que el vehículo se encuentra en taller a consecuencia de un siniestro)</br>
+Gasolina: Los vehículos se entregan con el tanque lleno de combustible. Antes de devolver la unidad debe ser reabastecida.</br>
+Entregar la unidad sin lavar $25.00 dólares en el caso de sedans y $35.00 en el caso de camionetas </br>
 
-    &#10004 Precios no incluye IGV</br>
-    &#10004 Si la tarifa está en moneda extranjera, se considera al tipo de cambio del día de envío de la
-    cotización.</br>
-    &#10004 El precio está en función a lo solicitado. Tendrá 20 minutos de tolerancia, pasado el horario de retorno se procederá a
-    cobrar hora adicional según tarifario y tipo de unidad.</br>
-    &#10004 Tarifa sujeta a disponibilidad sin previo aviso y se confirma al momento de hecha la reserva.</br>
-    &#10004 De producirse una cancelación 48 horas antes del servicio será considerado no show y se cobrará el 100% del
-    valor total de la factura.</br>
-    &#10004 En los traslados de  aeropuerto en la tarifa esta incluido 45 minutos de parqueo, pasado ese horario
-    se procede a cobrar hora adicional.</br>
-    &#10004 No se permite comer, tomar bebidas alcohólicas ni fumar en la unidad. Así como tampoco ingresar a la unidad
-    en estado etílico o con efectos de haber ingerido otras sustancias.</br>
-    &#10004 No se permite realizar paradas no autorizadas durante el trayecto en los servicios, por disposición del
-    Ministerio de Transporte para evitar multas. Caso excepcionales puede consultarlo al momento de solicitar la reserva.</br>
-    &#10004 Por disposiciones del Ministerio de Transporte la velocidad permitida es de 90km/h. Por reglamentacion las 
-    unidades no pueden exeder la velocidad.</br>
-    &#10004 En caso de daño o perjuicio por parte de los pasajeros a la unidad, será responsable la empresa contratante
-    por el 100% de los gastos ocasionados.</br>
-    &#10004 Es importante que todos los pasajeros porten su DNI, Adultos (según Numeral 802.2 del Artículo 80° D.S. N°
-    017 - 2009 -MTC) y Niños (según Artículo 14° - D. S. N° 007- 2008 IN), si salen fuera de Lima, ya que TOLERANCIA
-    CERO lo solicitará.</br>
-    &#10004 Niños de 04 años a más, van en sus respectivos asientos.</br>
-    &#10004 Alitour no es responsable de perjuicio o retraso derivado de circunstancias ajenas a su control, como:
-    desastres naturales como terremotos, ciclones, tormentas, huracanes, inundaciones, niebla, etc. Así como a causas de
-    fuerza mayor: guerras, accidentes, huelgas, disturbios, manifestaciones o conmoción civil, etc, y a cualquier
-    pérdida, daño, accidente o alguna otra irregularidad.</br>
-</p>
+</br>
+Importante: Las fotos de las unidades son referenciales pero todas son de las mismas características y están sujetas a fecha y tiempo de reserva según programación y disponibilidad.</br>
+</br>
 
+FORMAS DE PAGO:</br>
+&#10004  Por adelantado al 100% del costo total</br>
+&#10004  Adelanto del 50%  para confirmar la reserva y antes del servicio realizar el pago del 50% del saldo.</br>
+&#10004  Crédito  previa evaluación y enviando su Orden de Servicio.</br>
+</br> 
+TRANSFERENCIA BANCARIA |  Nacional e internacional con codigo SWIFT</br>
+Indicar si desean boleta o factura, para enviar el número de cuenta.</br>
+</br>
+TARJETAS DE CREDITO MEDIANATE IZIPAY(VISA, MASTERCARD,AMERICAN EXPRESS,) , O EN LINEA CON PAYPAL</br>
+</br>
+EN EFECTIVO: En nuestra oficina ubicada en la Ricardo Palma 781 - Miraflores.</br>
+O solicitar sin cargo alguno la visita de un cobrador. El mensajero deberá entregar un documento de cobranza del servicio solicitado.</br>
+</br>
 
-
-<b> INCLUYE:</b></br>
-
-&#10004 Uso del vehículo por los días/horas contratados.</br>
-&#10004 Conductores profesionales.</br>
-&#10004 Combustible del vehículo, peajes y parqueos</br>
-&#10004 Viáticos para los alojamientos y alimentación del conductor</br>
-
-<b>UNIDADES  ESTÁNDAR CUENTAN CON:</b> </br>
-&#10004 Extintor antiincendios, botiquín de primeros auxilios, llantas de repuesto y herramientas necesarias.</br>
-&#10004 Cinturones de seguridad en todos los asientos</br>
-&#10004 Permiso de Circulación Nacional otorgado por el MTC </br>
-&#10004 SOAT Turístico contra accidentes de los pasajeros</br>
-&#10004 Monitoreo satelital con GPS</br>
 
 <b>Saludos Cordiales,</b>
 <p class="logo">
