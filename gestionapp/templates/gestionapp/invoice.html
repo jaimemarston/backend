@@ -28,7 +28,8 @@
     }
     
     .noborder {
-        border: none
+        border: none;
+        margin-left: +5px;
     }
 
     tr,
@@ -57,6 +58,7 @@
 
     .text-left {
         text-align: left;
+        margin-left: +5px;
     }
 
     .text-right {
@@ -203,7 +205,7 @@
                 <tr class="noborder">
                     <td class="noborder" colspan="4"></td>
                     <td >SUBTOTAL</td>
-                    <td >{{resultado_total}}</td>
+                    <td >{{resultado_subtotal}}</td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="4"></td>
@@ -226,6 +228,15 @@
 
             </tr> -->
         </table>
+        
+        
+
+        <b>Generado por:</b></br>
+        <b>Celular:  949 352 924</b></br>
+        <b>Fijo:  01 255 9628</b></br>
+        <b>Correo: reservas@alitourperu.com</b></br>    
+        <H4 >www.alitourperu.com</H4></br> 
+    
         <table class="bottom-20 noborder">
             {% for img1 in muestra_imagenes1 %}
             <tr class="noborder">
@@ -359,7 +370,7 @@ O solicitar sin cargo alguno la visita de un cobrador. El mensajero deberá entr
 
 
 <b>Saludos Cordiales,</b>
-<p class="logo">
+<!-- <p class="logo">
     <img src="{% static 'img/tarjeta_amparo.png' %}" width="650px" height="250px">
-</p>
+</p> -->
 {% endblock %}

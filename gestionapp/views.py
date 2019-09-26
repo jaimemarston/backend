@@ -275,15 +275,25 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'Transporte', 'Total']
             fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
             headerset = Mcotizacion.objects.filter(id=pk).values()
-            # rigv =      list(Mcotizacion.objects.filter(id=pk).values('impigv'))[0] or 0
-            rigv = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
+            
 
             queryset = Dcotizacion.objects.filter(master=pk).values()
-            rimptotal = list(Dcotizacion.objects.filter(master=pk).aggregate(Sum('imptotal')).values())[0] or 0
+
+            rimpsubtotal = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impsubtotal')).values())[0] or 0
+            rigv         = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
+            rimptotal    = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
+           
+            imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')) or ''
             
-            imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')[0]) or ''
-            #imagen_obt = list(Unidad.objects.filter(descripcion=imagenes).values_list())
-            imagen_obt1 = list(Unidad.objects.values_list('foto1')[0])
+            imagen_obtx=[]
+            for image in imagenes:
+                imagen_obt = list(Unidad.objects.filter(descripcion=image[0]).values_list('foto1'))
+                if imagen_obt:
+                   imagen_obtx = imagen_obtx + imagen_obt
+                #print ('imagen_obtx',type(imagen_obtx))  
+                #print ('imagen_obt',imagen_obt,imagen_obtx) 
+
+              
             imagen_obt2 = list(Unidad.objects.values_list('foto2')[0])
 
         return super(GeneratePDFCotizacionesDetail, self).get_context_data(
@@ -294,10 +304,11 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             headerset=headerset,
             fields=fields,
             fields_db=fields_db,
-            resultado_total=rimptotal,
+            resultado_subtotal=rimpsubtotal,
             resultado_dcto=0,
             resultado_igv=rigv,
-            muestra_imagenes1=imagen_obt1,
+            resultado_total=rimptotal,
+            muestra_imagenes1=imagen_obtx,
             muestra_imagenes2=imagen_obt2,
             **kwargs
         )
