@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^proveedor$', views.ProveedorList.as_view()),
     url(r'^proveedor/(?P<pk>[0-9]+)$', views.ProveedorDetail.as_view()),
 
+    url(r'^useractivo$', views.UnidadList.as_view()),
+
     url(r'^unidad$', views.UnidadList.as_view()),
     url(r'^unidad/(?P<pk>[0-9]+)$', views.UnidadDetail.as_view()),
 
@@ -47,6 +49,10 @@ urlpatterns = [
 
     url(r'^banco$', views.BancoList.as_view()),
     url(r'^generate_pdf$', views.GeneratePDFCotizacionesDetail.as_view()),
-    url(r'^generate_pdf/(?P<pk>\d+)/$', views.GeneratePDFCotizacionesDetail.as_view()),
+    
+    #url(r'^generate_pdf/(?P<pk>\d+)/(?P<user>\d+)$', views.GeneratePDFCotizacionesDetail.as_view()),
+    #url(r'^generate_pdf/(?P<pk>(\d+))/(?P<user>(\d+))/$',views.GeneratePDFCotizacionesDetail.as_view()), 
+    url(r'^generate_pdf/(?P<pk>(\d+))/$',views.GeneratePDFCotizacionesDetail.as_view()), 
+    #url(r'^generate_pdf/(?P<pk>\d+)/$', views.GeneratePDFCotizacionesDetail.as_view()),
     url(r'^generate_html$', TemplateView.as_view(template_name="gestionapp/invoice.html"))
 ]

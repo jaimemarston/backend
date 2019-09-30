@@ -21,6 +21,12 @@
         margin-bottom: 20px;
         page-break-inside: avoid;
     } */
+    .item-name {
+        border-color: white;
+        background-color: gainsboro;
+        margin-left: 5px;
+        
+    }
 
     table.bordered {
         border-top: 0.1pt solid #999999;
@@ -55,11 +61,20 @@
     td:last-child {
         padding-bottom: 0;
     }
+    .column-cantidad {
+        text-align: right;
+        margin-right: +5px;
+    }
+    
+    .column-fechaini,.column-horaini,.text-descripcion, .column-cantidad, .column-imptotal {
+        text-align: right;
+        margin-right: +5px;
+    }
 
-    .text-left {
+     .column-desunimed {
         text-align: left;
         margin-left: +5px;
-    }
+    } 
 
     .text-right {
         text-align: right;
@@ -166,13 +181,20 @@
 
     <div class="main">
 
-
         <table  class="bordered " >
             <tr>
                 {% for field in headerset %}
-                <td class="item-name"><strong>Numero de Cotizacion:{{ field.codigo }}</strong></td>
-                <td class="item-name"><strong>Dirigido a : </strong>{{ field.desruc }}</td>
-                <td class="item-name"><strong>Expresado en : </strong>{{ field.desmonepago }}</td>
+                <td class="item-name"><strong>N° COTIZACION:{{ field.codigo }}</strong></td>
+                <td class="item-name"><strong>Cod. Vendedor: </strong></td>
+                <td class="item-name"><strong>Fecha: </strong>{{ field.fechadoc }}</td>
+                <tr>
+                <td class="item-name"><strong>COD. CLIENTE:{{ field.ruc }}</strong></td>
+                <td class="item-name"><strong>Vendedor: </strong>{{username}}</td>
+                <td class="item-name"><strong>Moneda: </strong>{{ field.desmonepago }}</td>
+                <tr>
+                <td class="item-name"><strong>CLIENTE:{{ field.desruc }}</strong></td>
+                <td class="item-name"><strong>Contacto: </strong>{{cliente_contacto }}</td>
+                <td class="item-name"><strong>Telf/Correo: </strong>{{ field.correoruc }}</td>
 
                 {% endfor %}
             </tr>
@@ -187,13 +209,19 @@
                     {% endfor %}
                 </tr>
             </thead>
-            <h3>{{ 'DETALLE DE LA COTIZACION' }}</h3>
+            <h3>{{'DETALLE DE LA COTIZACION'}}</h3>
 
             <tbody >
                 {% for q in cotizacion %}
                 <tr  >
                     {% for k in fields_db %}
-                    <td class="text-left">{{ q|get_item:k }}</td>
+                    {% if k == "fechaini" %}
+                        <td class="column-{{ k }}"> {{ q|get_item:k|date:"d/m/Y" }}</td>
+                    {% else %}
+                        <td class="column-{{ k }}"> {{ q|get_item:k }}</td>
+                    {% endif %}
+                    
+                    <!-- <td class="text-left">{{ q|get_item:k }}</td> -->
                     {% endfor %}
                 </tr>
                 {% endfor %}
@@ -205,22 +233,22 @@
                 <tr class="noborder">
                     <td class="noborder" colspan="4"></td>
                     <td >SUBTOTAL</td>
-                    <td >{{resultado_subtotal}}</td>
+                    <td style="text-align: right ;margin-right: +5px;">{{resultado_subtotal}}</td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="4"></td>
                     <td >DESCUENTO</td>
-                    <td>{{resultado_dcto}}</td>
+                    <td style="text-align: right;margin-right: +5px;">{{resultado_dcto}}</td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="4"></td>
                     <td >IGV</td>
-                    <td>{{resultado_igv}}</td>
+                    <td style="text-align: right;margin-right: +5px;">{{resultado_igv}}</td>
                 </tr>
                 <tr class="noborder">
                     <td class="noborder" colspan="4"></td>
                     <td >TOTAL</td>
-                    <td>{{resultado_total}}</td>
+                    <td style="text-align: right;margin-right: +5px;">{{resultado_total}}</td>
                 </tr>
             </tfoot>
             <!-- <tr>
@@ -228,25 +256,27 @@
 
             </tr> -->
         </table>
-        
-        
-
-        <b>Generado por:</b></br>
+        <table >
+            <tr class="noborder">
+                
+                
+                <td style="text-align: left;">OBSERVACIONES:{{observacion_master}}</td>
+            </tr>
+        </table>
+        <tr>
+        <br>
+        <b>Generado por:</b>{{username}}</br>
         <b>Celular:  949 352 924</b></br>
         <b>Fijo:  01 255 9628</b></br>
         <b>Correo: reservas@alitourperu.com</b></br>    
         <H4 >www.alitourperu.com</H4></br> 
     
-        <table class="bottom-20 noborder">
             {% for img1 in muestra_imagenes1 %}
-            <tr class="noborder">
-                <td class="text-left noborder">/media/{{img1}}</td>
-                <img src=/media/{{img1}} width="150px" height="150px">
-                <br>
-                <!--<img src="/media/unidad/linked.png" width="150px" height="150px">-->
-            </tr>
+                    <img src="{{img1}}" width="250px" height="250px">
+                    {% if forloop.counter|divisibleby:3 %}
+                    <br>
+                    {% endif %}
             {% endfor %}
-        </table>
         <!-- <table class="bottom-20">
             {% for img1 in muestra_imagenes2 %}
             <tr class="noborder">
@@ -368,8 +398,6 @@ EN EFECTIVO: En nuestra oficina ubicada en la Ricardo Palma 781 - Miraflores.</b
 O solicitar sin cargo alguno la visita de un cobrador. El mensajero deberá entregar un documento de cobranza del servicio solicitado.</br>
 </br>
 
-
-<b>Saludos Cordiales,</b>
 <!-- <p class="logo">
     <img src="{% static 'img/tarjeta_amparo.png' %}" width="650px" height="250px">
 </p> -->

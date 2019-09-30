@@ -49,6 +49,11 @@ class BancoList(generics.ListCreateAPIView):
     serializer_class = BancoSerializer
 
 
+# class UseractivoList(generics.ListCreateAPIView):
+#     queryset = user.objects.filter(username self.request.user.username)
+#     serializer_class = UnidadSerializer
+
+
 class UnidadList(generics.ListCreateAPIView):
     queryset = Unidad.objects.all()
     serializer_class = UnidadSerializer
@@ -265,7 +270,13 @@ class GeneratePDFCotizacionesMaster(PDFTemplateView):
 class GeneratePDFCotizacionesDetail(PDFTemplateView):
     template_name = 'gestionapp/invoice.html'
 
-    def get_context_data(self, pk=None, *args, **kwargs):
+    def get_context_data(self, pk=None, user=None, *args, **kwargs):
+        #username = self.request.user.username
+        #username = self.request.user.get_username()
+        username = self.request.GET.get('user', None)
+        #username = user
+        print(username,'current user1')
+
         if pk is None:
             fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'transporte', 'Total']
             fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
@@ -275,32 +286,44 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'Transporte', 'Total']
             fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
             headerset = Mcotizacion.objects.filter(id=pk).values()
-            
+            datosprin = list(Mcotizacion.objects.filter(id=pk).values_list())
+
+            codruc=datosprin[0][9]
 
             queryset = Dcotizacion.objects.filter(master=pk).values()
+            mcliente = Cliente.objects.filter(ruc=codruc).values()
 
+            cliente_contacto=mcliente[0]['contacto']
+
+            observacion_mater=headerset[0]['obs']
+
+            print ("cliente_contacto",cliente_contacto,codruc)
             rimpsubtotal = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impsubtotal')).values())[0] or 0
             rigv         = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
             rimptotal    = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
-           
             imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')) or ''
             
-            imagen_obtx=[]
+            
+            imagen_obtx = []
             for image in imagenes:
-                imagen_obt = list(Unidad.objects.filter(descripcion=image[0]).values_list('foto1'))
+                # imagen_obt = list(Unidad.objects.filter(descripcion=image[0]).values_list('foto1'))
+                imagen_obt = Unidad.objects.filter(descripcion=image[0])
                 if imagen_obt:
-                   imagen_obtx = imagen_obtx + imagen_obt
+                    for foto in imagen_obt:
+                        imagen_obtx.append(foto.foto1.url)
                 #print ('imagen_obtx',type(imagen_obtx))  
                 #print ('imagen_obt',imagen_obt,imagen_obtx) 
 
               
-            imagen_obt2 = list(Unidad.objects.values_list('foto2')[0])
-
+            #imagen_obt2 = Unidad.objects.filter(descripcion=image[0])
+            imagen_obt2 = ''
         return super(GeneratePDFCotizacionesDetail, self).get_context_data(
             pagesize='A4',
             title='Cotizacion Alitour',
             today=now(),
             cotizacion=queryset,
+            cliente_contacto=cliente_contacto,
+            observacion_master=observacion_mater,
             headerset=headerset,
             fields=fields,
             fields_db=fields_db,
@@ -310,6 +333,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             resultado_total=rimptotal,
             muestra_imagenes1=imagen_obtx,
             muestra_imagenes2=imagen_obt2,
+            username=username,
             **kwargs
         )
 

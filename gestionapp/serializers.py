@@ -160,7 +160,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte',
                   'lugorigen', 'lugdestino', 'opcviaje',
-                  'estado', 'grupo', 'posmapa', 'cotizaciones')
+                  'estado', 'grupo', 'posmapa','obs', 'cotizaciones')
 
 class MliquidacionSerializer(serializers.ModelSerializer):
     #liquidaciones = DliquidacionSerializer(many=True, read_only=True)

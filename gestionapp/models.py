@@ -63,7 +63,8 @@ class Camposcomunes_masterdoc(models.Model):
     lugdestino = models.CharField(max_length=50, null=True, blank=True)
     opcviaje = models.CharField(max_length=30, null=True, blank=True)
     grupo = models.CharField(max_length=100, null=True, blank=True)
-
+    obs =  models.TextField(null=True, blank=True)
+    
     class Meta:
         abstract = True
 
@@ -102,7 +103,7 @@ class Camposcomunes_detaildoc(models.Model):
     nvuelo = models.CharField(max_length=50, null=True, blank=True)
     proveedor = models.CharField(max_length=50, null=True, blank=True)
     tipodoc = models.CharField(max_length=50, null=True, blank=True)
-    obs = models.CharField(max_length=50, null=True, blank=True)
+    obs =  models.TextField(null=True, blank=True)
     #user_tracking
     alert = models.CharField(max_length=50, null=True, blank=True)
     detail = models.TextField(null=True, blank=True)
