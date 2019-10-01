@@ -184,18 +184,27 @@
         <table  class="bordered " >
             <tr>
                 {% for field in headerset %}
+
+                <td class="item-name"><strong>Fecha: {{ field.fechadoc }}</strong></td>
                 <td class="item-name"><strong>N° COTIZACION:{{ field.codigo }}</strong></td>
-                <td class="item-name"><strong>Cod. Vendedor: </strong></td>
-                <td class="item-name"><strong>Fecha: </strong>{{ field.fechadoc }}</td>
-                <tr>
-                <td class="item-name"><strong>COD. CLIENTE:{{ field.ruc }}</strong></td>
-                <td class="item-name"><strong>Vendedor: </strong>{{username}}</td>
                 <td class="item-name"><strong>Moneda: </strong>{{ field.desmonepago }}</td>
                 <tr>
-                <td class="item-name"><strong>CLIENTE:{{ field.desruc }}</strong></td>
+                <td class="item-name"><strong>COD. CLIENTE:{{ field.ruc }}</strong></td>
                 <td class="item-name"><strong>Contacto: </strong>{{cliente_contacto }}</td>
-                <td class="item-name"><strong>Telf/Correo: </strong>{{ field.correoruc }}</td>
-
+                <td class="item-name"><strong>Vendedor: </strong>{{username}}</td>
+                
+                <tr>
+                <td class="item-name"><strong>Cliente: </strong>{{ field.desruc }}</td>
+                <td class="item-name"><strong>Telf: </strong>{{field.telruc }}</td>
+                <td class="item-name"><strong>Telf: </strong>01 255 9628</td>
+                
+               
+                
+                <tr>                        
+                <td class="item-name"><strong>Direccion: </strong>{{ field.dirruc }}</td>
+                <td class="item-name"><strong>Correo:</strong>{{ field.correoruc }}</td>
+                <td class="item-name"><strong>Correo:</strong>reservas@alitourperu.com</td>
+              
                 {% endfor %}
             </tr>
 
@@ -265,10 +274,6 @@
         </table>
         <tr>
         <br>
-        <b>Generado por:</b>{{username}}</br>
-        <b>Celular:  949 352 924</b></br>
-        <b>Fijo:  01 255 9628</b></br>
-        <b>Correo: reservas@alitourperu.com</b></br>    
         <H4 >www.alitourperu.com</H4></br> 
     
             {% for img1 in muestra_imagenes1 %}
