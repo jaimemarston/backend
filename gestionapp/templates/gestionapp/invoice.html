@@ -164,7 +164,7 @@
         <p>
             {{ 'Av Ricardo Palma 781' }} {{ 'Miraflores' }} <br />
             {{ 'LIMA - PERU' }}<br />
-            {{ today|date:"DATE_FORMAT" }}
+            
 
         </p>
     </div>
@@ -274,7 +274,7 @@
         </table>
         <tr>
         <br>
-        <H4 >www.alitourperu.com</H4></br> 
+        
     
             {% for img1 in muestra_imagenes1 %}
                     <img src="{{img1}}" width="250px" height="250px">
@@ -294,16 +294,21 @@
         </table>  -->
         
     </div>
+    
 </div>
 
-<pdf:nextpage />
+
 
 
 
 {% endblock %}
 {% block page_foot %}
 
+
 <br> <i>Para confirmar la reserva, necesitamos datos de los pasajeros, # de vuelos y nombre del hotel. </i> </br>
+<H4 align="center">www.alitourperu.com  | Telefono Fijo 255 9628 | Cel. 969 638 896 |  Av Ricardo Palma 781 Miraflores | LIMA - PERU </H4><br />
+  
+<pdf:nextpage />
 <b>CONDICIONES</b>
 <b>SERVICIO ESPECIAL DE TRANSPORTE TURISTICO</b></br>
 </br>
@@ -406,4 +411,5 @@ O solicitar sin cargo alguno la visita de un cobrador. El mensajero deberá entr
 <!-- <p class="logo">
     <img src="{% static 'img/tarjeta_amparo.png' %}" width="650px" height="250px">
 </p> -->
+<H4 align="center">www.alitourperu.com  | Telefono Fijo 255 9628 | Cel. 969 638 896 |  Av Ricardo Palma 781 Miraflores | LIMA - PERU </H4><br /></br> 
 {% endblock %}
