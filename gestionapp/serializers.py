@@ -136,7 +136,7 @@ class DcotizacionSerializer(serializers.ModelSerializer):
     signature = Base64ImageField(max_length=None, use_url=True, required=False, allow_null=True)
     class Meta:
         model = Dcotizacion
-        fields = ('id', 'codigo', 'codpro', 'descripcion', 'unimed', 'desunimed', 'cantidad', 'precio', 'impsubtotal',
+        fields = ('id', 'codigo', 'codpro', 'descripcion', 'pax', 'unimed', 'desunimed', 'cantidad', 'precio', 'impsubtotal',
                   'impanticipos', 'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'desgrupo1', 'desgrupo2', 'lugorigen', 'lugdestino', 'opcviaje',

@@ -73,6 +73,7 @@ class Camposcomunes_detaildoc(models.Model):
     codigo = models.IntegerField(default=0)
     codpro = models.CharField(max_length=30, null=True, blank=True)
     descripcion = models.CharField(max_length=150, null=True, blank=True)
+    pax = models.IntegerField(default=0, null=True, blank=True)
     unimed = models.CharField(max_length=60, null=True, blank=True)
     desunimed = models.CharField(max_length=60, null=True, blank=True)
     cantidad = models.IntegerField(default=0, null=True, blank=True)

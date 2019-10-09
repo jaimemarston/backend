@@ -1,65 +1,51 @@
-<!DOCTYPE html>
 <html>
-
 <head>
-    <title>{{ title|default:"" }}</title>
 
-    {% block style_base %}
-
-    {% block layout_style %}
-    <style type="text/css">
-        @page {
-            size: {
-                    {
-                    pagesize|default: "A4"
-                }
-            }
-
-            ;
-            margin-left: 2.5cm;
-            margin-right: 2.5cm;
-            margin-top: 2.5cm;
-            margin-bottom: 2cm;
-
-            @frame header {
-                -pdf-frame-content: page-header;
-                margin-top: 0.7cm;
-                margin-right: 2mm;
-                margin-bottom: 0cm;
-                margin-left: 1.2cm;
-            }
-
-            @frame footer {
-                -pdf-frame-content: page-footer;
-                bottom: 0cm;
-                margin-left: 1cm;
-                margin-right: 1cm;
-                height: 1cm;
-            }
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
         }
-    </style>
-    {% endblock %}
-    {% block extra_style %}{% endblock %}
-    {% endblock %}
+        @frame content_frame {        
+       
+            left: 50pt; width: 512pt; top: 90pt; height: 652pt;
+            -pdf-frame-border: 1;
+        }
+        @frame footer_frame {          
+            -pdf-frame-content: footer_content;
+            width: 512pt; top: 800pt; height: 60pt;
+        }
+    }
+
+</style>
+{% block extra_style %}{% endblock %} 
 </head>
 
-
 <body>
-    <div id="page-header">
+
+    <div id="header_content">
         {%block page_header%}
         {%endblock%}
     </div>
 
-    <div id="page-content">
-        {%block page_content%}
-        {%endblock%}
-    </div>
-
-    <div id="page-footer">
+    <div align="center" id="footer_content">
         {%block page_foot%}
         {%endblock%}
     </div>
 
-</body>
 
+    <div id="content"></div>
+        {%block page_content%}
+        {%endblock%}
+    </div>
+   
+    <pdf:nextpage ></pdf:nextpage>
+
+</body>
+    <div id="footer_content2">
+            {%block page_foot2%}
+            {%endblock%}
+    </div>
 </html>

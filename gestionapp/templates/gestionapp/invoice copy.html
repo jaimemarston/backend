@@ -1,6 +1,8 @@
 {% extends "gestionapp/base.html" %}
-
+<!--https://github.com/spipu/html2pdf/issues/81-->
 {% load static %}
+{% block layout_style %}
+{% endblock %}
 {% block extra_style %}
 
 <style type="text/css">
@@ -152,6 +154,7 @@
     }
 </style>
 {% endblock %}
+
 {% block page_header %}
 <div id="page-header">
     <div >
@@ -169,6 +172,8 @@
 {% endblock %}
 
 {% block page_content %}
+
+
 <div id="content">
     <div class="recipient bottom-10">
 
@@ -261,7 +266,9 @@
             </tr> -->
         </table>
         <table >
-            <tr class="noborder">                
+            <tr class="noborder">
+                
+                
                 <td style="text-align: left;">OBSERVACIONES:{{observacion_master}}</td>
             </tr>
         </table>
@@ -275,20 +282,37 @@
                     <br>
                     {% endif %}
             {% endfor %}
-
+        <!-- <table class="bottom-20">
+            {% for img1 in muestra_imagenes2 %}
+            <tr class="noborder">
+                <td class="text-left">/media/{{img1}}</td>
+                <img src=/media/{{img1}} width="150px" height="150px">
+                <br>
+               
+            </tr>
+            {% endfor %}
+        </table>  -->
         
     </div>
     
 </div>
- 
+
+
+
+
+  
 
 {% endblock %}
 
 
+{% block page_foot %}
+<p>CONDICIONES</p>
+<!-- <H4 align="center">www.alitourperu.com  | Telefono Fijo 255 9628 | Cel. 969 638 896 |  Av Ricardo Palma 781 Miraflores | LIMA - PERU </H4><br /> -->
+
+{% endblock %}
+<pdf:nextpage />
 
 
-
-{% block page_foot2 %}
 <br> <i>Para confirmar la reserva, necesitamos datos de los pasajeros, # de vuelos y nombre del hotel. </i> </br>
 
 <b>CONDICIONES</b>
@@ -393,11 +417,4 @@ O solicitar sin cargo alguno la visita de un cobrador. El mensajero deberá entr
 <!-- <p class="logo">
     <img src="{% static 'img/tarjeta_amparo.png' %}" width="650px" height="250px">
 </p> -->
-<!-- <H4 align="center">www.alitourperu.com  | Telefono Fijo 255 9628 | Cel. 969 638 896 |  Av Ricardo Palma 781 Miraflores | LIMA - PERU </H4><br /></br>  -->
-{% endblock %}
-
-{% block page_foot %}
-<b>Pagina <pdf:pagenumber> de <pdf:pagecount></pdf:pagecount></b>
-<H4 align="center">www.alitourperu.com  | Telefono Fijo 255 9628 | Cel. 969 638 896 |  Av Ricardo Palma 781 Miraflores | LIMA - PERU </H4>
-
-{% endblock %}
+<H4 align="center">www.alitourperu.com  | Telefono Fijo 255 9628 | Cel. 969 638 896 |  Av Ricardo Palma 781 Miraflores | LIMA - PERU </H4><br /></br> 
