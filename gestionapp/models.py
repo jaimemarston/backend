@@ -101,6 +101,7 @@ class Camposcomunes_detaildoc(models.Model):
     lugdestino = models.CharField(max_length=50, null=True, blank=True)
     opcviaje = models.CharField(max_length=30, null=True, blank=True)
     conductor = models.CharField(max_length=50, null=True, blank=True)
+    nombreguia = models.CharField(max_length=50, null=True, blank=True)
     nvuelo = models.CharField(max_length=50, null=True, blank=True)
     proveedor = models.CharField(max_length=50, null=True, blank=True)
     tipodoc = models.CharField(max_length=50, null=True, blank=True)

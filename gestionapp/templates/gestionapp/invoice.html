@@ -64,12 +64,12 @@
         margin-right: +5px;
     }
     
-    .column-fechaini,.column-horaini,.text-descripcion, .column-cantidad, .column-imptotal {
+    .column-fechaini,.column-horaini,.column-pax, .column-cantidad, .column-imptotal {
         text-align: right;
         margin-right: +5px;
     }
 
-     .column-desunimed {
+     .column-desunimed,.column-descripcion {
         text-align: left;
         margin-left: +5px;
     } 
@@ -220,7 +220,19 @@
                 <tr  >
                     {% for k in fields_db %}
                     {% if k == "fechaini" %}
-                        <td class="column-{{ k }}"> {{ q|get_item:k|date:"d/m/Y" }}</td>
+                        <td width="100" class="column-{{ k }}"> {{ q|get_item:k|date:"d/m/Y" }}</td>
+                    {% elif k == "horaini" %}
+                        <td width="50" class="column-{{ k }}"> {{ q|get_item:k }}</td>
+                    {% elif k == "descripcion" %}
+                        <td width="280" class="column-{{ k }}"> {{ q|get_item:k }}</td>
+                    {% elif k == "pax" %}
+                        <td width="30" class="column-{{ k }}"> {{ q|get_item:k }}</td>
+                    {% elif k == "cantidad" %}
+                        <td width="30" class="column-{{ k }}"> {{ q|get_item:k }}</td>
+                    {% elif k == "desunimed" %}
+                        <td width="200" class="column-{{ k }}"> {{ q|get_item:k }}</td>
+                    {% elif k == "imptotal" %}
+                        <td width="80" class="column-{{ k }}"> {{ q|get_item:k }}</td>    
                     {% else %}
                         <td class="column-{{ k }}"> {{ q|get_item:k }}</td>
                     {% endif %}
@@ -233,28 +245,39 @@
         </table>
         
         <table >
+            {% if documentosel == "Recibo" %}
             <tfoot  >
                 <tr class="noborder">
-                    <td class="noborder" colspan="4"></td>
-                    <td >SUBTOTAL</td>
-                    <td style="text-align: right ;margin-right: +5px;">{{resultado_subtotal}}</td>
-                </tr>
-                <tr class="noborder">
-                    <td class="noborder" colspan="4"></td>
-                    <td >DESCUENTO</td>
-                    <td style="text-align: right;margin-right: +5px;">{{resultado_dcto}}</td>
-                </tr>
-                <tr class="noborder">
-                    <td class="noborder" colspan="4"></td>
-                    <td >IGV</td>
-                    <td style="text-align: right;margin-right: +5px;">{{resultado_igv}}</td>
-                </tr>
-                <tr class="noborder">
-                    <td class="noborder" colspan="4"></td>
-                    <td >TOTAL</td>
-                    <td style="text-align: right;margin-right: +5px;">{{resultado_total}}</td>
-                </tr>
-            </tfoot>
+                        <td class="noborder" colspan="4"></td>
+                        <td >TOTAL</td>
+                        <td style="text-align: right;margin-right: +5px;">{{resultado_total}}</td>
+                    </tr>
+                </tfoot>
+            {% else %}
+            <tfoot  >
+                    <tr class="noborder">
+                        <td class="noborder" colspan="4"></td>
+                        <td >SUBTOTAL</td>
+                        <td style="text-align: right ;margin-right: +5px;">{{resultado_subtotal}}</td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="noborder" colspan="4"></td>
+                        <td >DESCUENTO</td>
+                        <td style="text-align: right;margin-right: +5px;">{{resultado_dcto}}</td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="noborder" colspan="4"></td>
+                        <td >IGV</td>
+                        <td style="text-align: right;margin-right: +5px;">{{resultado_igv}}</td>
+                    </tr>
+                    <tr class="noborder">
+                        <td class="noborder" colspan="4"></td>
+                        <td >TOTAL</td>
+                        <td style="text-align: right;margin-right: +5px;">{{resultado_total}}</td>
+                    </tr>
+                </tfoot>
+            {% endif %}
+           
             <!-- <tr>
                 <td class="text-right"><strong>{{muestra_imagenes}}</strong></td>
 

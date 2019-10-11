@@ -283,8 +283,9 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             headerset = Mcotizacion.objects.all().values()
             queryset = Mcotizacion.objects.all().values()
         else:
-            fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'Transporte', 'Total']
-            fields_db = ['fechaini', 'horaini', 'descripcion', 'cantidad', 'desunimed', 'imptotal']
+            fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'CNT', 'Transporte', 'Total']
+            fields_db = ['fechaini', 'horaini', 'descripcion','pax','cantidad', 'desunimed', 'imptotal']
+            
             headerset = Mcotizacion.objects.filter(id=pk).values()
             datosprin = list(Mcotizacion.objects.filter(id=pk).values_list())
 
@@ -294,7 +295,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             mcliente = Cliente.objects.filter(ruc=codruc).values()
 
             cliente_contacto=mcliente[0]['contacto']
-
+            documento = headerset[0]['destipdoc']
             observacion_mater=headerset[0]['obs']
 
             print ("cliente_contacto",cliente_contacto,codruc)
@@ -323,6 +324,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             today=now(),
             cotizacion=queryset,
             cliente_contacto=cliente_contacto,
+            documentosel=documento,
             observacion_master=observacion_mater,
             headerset=headerset,
             fields=fields,

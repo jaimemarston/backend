@@ -140,7 +140,7 @@ class DcotizacionSerializer(serializers.ModelSerializer):
                   'impanticipos', 'impdescuentos',
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'desgrupo1', 'desgrupo2', 'lugorigen', 'lugdestino', 'opcviaje',
-                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'conductor', 'nvuelo',
+                  'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'conductor', 'nombreguia', 'nvuelo',
                   'proveedor', 'obs', 'tipodoc', 'estado', 'estadodoc', 'posmapa', 'master',
                   'alert', 'detail', 'is_active', 'creation_date', 'update_date', 'starttask', 'endtask', 'start_longitude',
                   'end_longitude', 'start_latitude', 'end_latitude', 'rating', 'signature' )
