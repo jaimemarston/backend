@@ -300,6 +300,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
 
             print ("cliente_contacto",cliente_contacto,codruc)
             rimpsubtotal = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impsubtotal')).values())[0] or 0
+            rimpdcto     = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impdescuentos')).values())[0] or 0
             rigv         = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
             rimptotal    = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
             imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')) or ''
@@ -330,7 +331,7 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             fields=fields,
             fields_db=fields_db,
             resultado_subtotal=rimpsubtotal,
-            resultado_dcto=0,
+            resultado_dcto=rimpdcto,
             resultado_igv=rigv,
             resultado_total=rimptotal,
             muestra_imagenes1=imagen_obtx,
