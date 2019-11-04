@@ -191,7 +191,6 @@ class MliquidacionList(generics.ListCreateAPIView):
     queryset = Dliquidacion.objects.all()
     serializer_class = MliquidacionSerializer
 
-
 class MliquidacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Dliquidacion.objects.all()
     serializer_class = MliquidacionSerializer
@@ -199,18 +198,16 @@ class MliquidacionDetail(generics.RetrieveUpdateDestroyAPIView):
 class McotizacionList(generics.ListCreateAPIView):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
-       
+
 
 class McotizacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
-    
-
-
+   
 class DliquidacionList(generics.ListCreateAPIView):
     queryset = Dliquidacion.objects.all()
     serializer_class = DliquidacionSerializer
-
+   
 class DliquidacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Dliquidacion.objects.all()
     serializer_class = DliquidacionSerializer
@@ -222,7 +219,7 @@ class DcotizacionList(generics.ListCreateAPIView):
 class DcotizacionDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Dcotizacion.objects.all()
     serializer_class = DcotizacionSerializer
-    
+
 
 class Logout(APIView):
     queryset = User.objects.all()
@@ -237,11 +234,9 @@ class ClientesDireccionlist(generics.ListCreateAPIView):
     queryset = Clientesdireccion.objects.all()
     serializer_class = ClientesdireccionSerializer
 
-
 class ClientesDireccionlistdetail(generics.ListCreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = ClientesdirecciondetalleSerializer
-
 
 class LiquidacionViewSet(viewsets.ModelViewSet):
     queryset = Dcotizacion.objects.all()
@@ -250,7 +245,7 @@ class LiquidacionViewSet(viewsets.ModelViewSet):
 class CotizacionViewSet(viewsets.ModelViewSet):
     queryset = Mcotizacion.objects.all()
     serializer_class = McotizacionSerializer
-
+    
 
 class GeneratePDFCotizacionesMaster(PDFTemplateView):
     template_name = 'gestionapp/invoice.html'
