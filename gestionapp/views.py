@@ -294,10 +294,26 @@ class GeneratePDFCotizacionesDetail(PDFTemplateView):
             observacion_mater=headerset[0]['obs']
 
             print ("cliente_contacto",cliente_contacto,codruc)
-            rimpsubtotal = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impsubtotal')).values())[0] or 0
+            rimpsubtotal = list(Dcotizacion.objects.filter(master=pk).aggregate(Sum('imptotal')).values())[0] or 0
             rimpdcto     = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impdescuentos')).values())[0] or 0
-            rigv         = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
-            rimptotal    = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
+            if documento == "Recibo":
+               rigv         = 0
+            else:
+               rigv         = round((rimpsubtotal-rimpdcto) * 18 / 100,2) #list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
+            
+
+            rimptotal    = rimpsubtotal + rigv #list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
+            
+            Mcotizacion.objects.filter(id=pk).update(impsubtotal=rimpsubtotal,impigv=rigv,imptotal=rimptotal)
+         
+            
+            #p = Pldatosreloj(codigo='Petr', codemp='xx')
+            #p.save()
+            # rimpsubtotal = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impsubtotal')).values())[0] or 0
+            # rimpdcto     = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impdescuentos')).values())[0] or 0
+            # rigv         = list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
+            # rimptotal    = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
+            
             imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')) or ''
             
             
