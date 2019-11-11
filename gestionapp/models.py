@@ -145,7 +145,7 @@ class Camposcomunes_auditoria(models.Model):
 
 class Camposcomunes_personal(models.Model):
     codigo = models.CharField(max_length=15, blank=True, null=True)
-    ruc = models.CharField(max_length=15, blank=True, null=True)
+    ruc = models.CharField(max_length=15, null=True, blank=True, unique=True)
     nombre = models.CharField(max_length=100, blank=True, null=True)
     telefono1 = models.CharField(max_length=30, blank=True, null=True)
     telefono2 = models.CharField(max_length=30, blank=True, null=True)
