@@ -54,5 +54,9 @@ urlpatterns = [
     #url(r'^generate_pdf/(?P<pk>(\d+))/(?P<user>(\d+))/$',views.GeneratePDFCotizacionesDetail.as_view()), 
     url(r'^generate_pdf/(?P<pk>(\d+))/$',views.GeneratePDFCotizacionesDetail.as_view()), 
     #url(r'^generate_pdf/(?P<pk>\d+)/$', views.GeneratePDFCotizacionesDetail.as_view()),
-    url(r'^generate_html$', TemplateView.as_view(template_name="gestionapp/invoice.html"))
+    url(r'^generate_html$', TemplateView.as_view(template_name="gestionapp/invoice.html")),
+
+    #1 Listas de pantalla
+    url(r'^export_xls_clientes$', views.export_xls_clientes, name='clientes'),
+    url(r'^export_xls_proveedores$', views.export_xls_proveedores, name='proveedores'),
 ]
