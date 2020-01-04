@@ -66,15 +66,16 @@ class ArticuloSerializer(serializers.ModelSerializer):
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
-        fields = ('id', 'codigo', 'nombre', 'ruc',
-                  'telefono1', 'telefono2', 'telefono3',
-                  'contacto', 'telcontacto','correo',
-                  'contacto2', 'telcontacto2','correo2',
-                  'contacto3', 'telcontacto3','correo3',
-                  'direccion', 'paginaweb', 'tipocc', 'destipocc',
-                  'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
-                  'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
-                  'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma', 'categprov')
+        fields = '__all__'
+        #fields = ('id', 'codigo', 'nombre', 'ruc',
+        #          'telefono1', 'telefono2', 'telefono3',
+        #          'contacto', 'telcontacto','correo',
+        #          'contacto2', 'telcontacto2','correo2',
+        #          'contacto3', 'telcontacto3','correo3',
+        #          'direccion', 'paginaweb', 'tipocc', 'destipocc',
+        #          'banco_nombre1', 'banco_cuenta1','banco_nomdest1','banco_moneda1',
+        #          'banco_nombre2', 'banco_cuenta2','banco_nomdest2','banco_moneda2',
+        #          'fechanac', 'fechaini', 'fechafin', 'grupo', 'pais', 'idioma', 'categprov')
 
     def create(self, validated_data):
         last_id = Cliente.objects.last().id if Cliente.objects.last() else 1
@@ -160,7 +161,7 @@ class McotizacionSerializer(serializers.ModelSerializer):
                   'impvalorventa', 'impisc', 'impigv', 'nvaligv', 'impotroscargos', 'impotrostributos', 'imptotal',
                   'cc1', 'cc2', 'cc3', 'fechaini', 'fechafin', 'horaini', 'horafin', 'correoruc', 'unidadtransporte',
                   'lugorigen', 'lugdestino', 'opcviaje',
-                  'estado', 'grupo', 'posmapa','obs', 'cotizaciones')
+                  'estado', 'grupo', 'posmapa','obs','comonoscontacto', 'cotizaciones')
 
 class MliquidacionSerializer(serializers.ModelSerializer):
     #liquidaciones = DliquidacionSerializer(many=True, read_only=True)

@@ -270,6 +270,76 @@ class GeneratePDFCotizacionesMaster(PDFTemplateView):
             **kwargs
         )
 
+class GeneratePDFEmbajadaDetail(PDFTemplateView):
+    template_name = 'gestionapp/formatoemb.html'
+
+    def get_context_data(self, pk=None, *args, **kwargs):
+        
+        fields = ['Fecha', 'Hora', 'Descripcion', 'PAX', 'CNT', 'Transporte', 'Total']
+        fields_db = ['fechaini', 'horaini', 'descripcion','pax','cantidad', 'desunimed', 'imptotal']
+        
+        headerset = Mcotizacion.objects.filter(id=pk).values()
+        datosprin = list(Mcotizacion.objects.filter(id=pk).values_list())
+
+        codruc=datosprin[0][9]
+
+        queryset = Dcotizacion.objects.filter(master=pk).values()
+        mcliente = Cliente.objects.filter(ruc=codruc).values()
+
+        dato_vehiculo = queryset[0]['desunimed']
+        punto_recojo  = queryset[0]['lugorigen']
+        lugar_destino = queryset[0]['lugdestino']
+        cliente_contacto=mcliente[0]['contacto']
+        documento = headerset[0]['destipdoc']
+        observacion_mater=headerset[0]['obs']
+        nombre_cliente=headerset[0]['desruc']
+
+        print ("cliente_contacto",cliente_contacto,codruc)
+        rimpsubtotal = list(Dcotizacion.objects.filter(master=pk).aggregate(Sum('imptotal')).values())[0] or 0
+        rimpdcto     = list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('impdescuentos')).values())[0] or 0
+        if documento == "Recibo":
+            rigv         = 0
+        else:
+            rigv         = round((rimpsubtotal-rimpdcto) * 18 / 100,2) #list(Mcotizacion.objects.filter(id=pk).values_list('impigv')[0])[0]
+        
+
+        rimptotal    = rimpsubtotal + rigv #list(Mcotizacion.objects.filter(id=pk).aggregate(Sum('imptotal')).values())[0] or 0
+        
+        Mcotizacion.objects.filter(id=pk).update(impsubtotal=rimpsubtotal,impigv=rigv,imptotal=rimptotal)
+        imagenes = list(Dcotizacion.objects.filter(master=pk).values_list('desunimed')) or ''
+        
+        imagen_obtx = []
+        for image in imagenes:
+            # imagen_obt = list(Unidad.objects.filter(descripcion=image[0]).values_list('foto1'))
+            imagen_obt = Unidad.objects.filter(descripcion=image[0])
+            if imagen_obt:
+                for foto in imagen_obt:
+                    imagen_obtx.append(foto.foto1.url)
+
+        imagen_obt2 = ''
+        return super(GeneratePDFEmbajadaDetail, self).get_context_data(
+            pagesize='A4',
+            title='Cotizacion Alitour',
+            today=now(),
+            cotizacion=queryset,
+            cliente_contacto=cliente_contacto,
+            documentosel=documento,
+            observacion_master=observacion_mater,
+            headerset=headerset,
+            fields=fields,
+            fields_db=fields_db,
+            resultado_subtotal=rimpsubtotal,
+            dato_vehiculo=dato_vehiculo,
+            punto_recojo=punto_recojo,
+            lugar_destino=lugar_destino,
+            nombre_cliente=nombre_cliente,
+            resultado_dcto=rimpdcto,
+            resultado_igv=rigv,
+            resultado_total=rimptotal,
+            muestra_imagenes1=imagen_obtx,
+            muestra_imagenes2=imagen_obt2,
+            **kwargs
+        )
 
 class GeneratePDFCotizacionesDetail(PDFTemplateView):
     template_name = 'gestionapp/invoice.html'

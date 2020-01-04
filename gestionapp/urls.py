@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^banco$', views.BancoList.as_view()),
     url(r'^generate_pdf$', views.GeneratePDFCotizacionesDetail.as_view()),
     
+    url(r'^print_pdf_embajada/(?P<pk>(\d+))/$',views.GeneratePDFEmbajadaDetail.as_view()), 
     #url(r'^generate_pdf/(?P<pk>\d+)/(?P<user>\d+)$', views.GeneratePDFCotizacionesDetail.as_view()),
     #url(r'^generate_pdf/(?P<pk>(\d+))/(?P<user>(\d+))/$',views.GeneratePDFCotizacionesDetail.as_view()), 
     url(r'^generate_pdf/(?P<pk>(\d+))/$',views.GeneratePDFCotizacionesDetail.as_view()), 

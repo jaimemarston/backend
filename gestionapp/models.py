@@ -64,6 +64,7 @@ class Camposcomunes_masterdoc(models.Model):
     opcviaje = models.CharField(max_length=30, null=True, blank=True)
     grupo = models.CharField(max_length=100, null=True, blank=True)
     obs =  models.TextField(null=True, blank=True)
+    comonoscontacto = models.CharField(max_length=150, blank=True, null=True)
     
     class Meta:
         abstract = True
@@ -187,7 +188,7 @@ class Camposcomunes_personal(models.Model):
     idioma = models.CharField(max_length=80, blank=True, null=True)
     categprov = models.CharField(max_length=80, blank=True, null=True)
     tipocontrato = models.CharField(max_length=100, blank=True, null=True)
-
+    comonoscontacto = models.CharField(max_length=150, blank=True, null=True)
     class Meta:
         abstract = True
 
